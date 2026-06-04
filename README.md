@@ -72,9 +72,12 @@ npm run build:github-pages
 **Deploy steps:**
 
 1. Push this repo to GitHub (e.g. `demo-testssr-seo`).
-2. **Settings → Pages → Build and deployment → Source:** choose **GitHub Actions**.
-3. Push to `main` — the workflow `.github/workflows/deploy-github-pages.yml` builds and publishes automatically.
-4. Your site will be at `https://<username>.github.io/<repo-name>/`.
+2. **Settings → Pages → Build and deployment → Source:** choose **Deploy from a branch**.
+3. **Branch:** `gh-pages` · **Folder:** `/ (root)` · Save.
+4. Push to `main` — the workflow builds the site and pushes to the `gh-pages` branch.
+5. Your site will be at `https://<username>.github.io/<repo-name>/` (may take 1–2 minutes after a green run).
+
+> If deploy failed with *“Ensure GitHub Pages has been enabled”*, you likely picked **GitHub Actions** as the source — this project uses the **`gh-pages` branch** instead (step 2–3 above).
 
 > If the repo name is not `demo-testssr-seo`, the workflow sets `baseHref` automatically. For **live SSR** (TransferState lab, on-demand rendering), use `npm run serve:ssr` locally or deploy to [Render](render.yaml) instead.
 
