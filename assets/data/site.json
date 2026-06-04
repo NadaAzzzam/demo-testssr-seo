@@ -1,0 +1,14 @@
+{
+  "organization": {
+    "name": "Angular SSR & SEO Academy",
+    "url": "https://NadaAzzzam.github.io/demo-testssr-seo",
+    "logo": "/demo-testssr-seo/images/logo-academy.svg",
+    "description": "Educational demo showing Server-Side Rendering, Hydration, and SEO best practices in Angular 20."
+  },
+  "defaultSeo": {
+    "siteName": "Angular SSR & SEO Demo",
+    "baseUrl": "https://NadaAzzzam.github.io/demo-testssr-seo",
+    "defaultImage": "/demo-testssr-seo/images/og-default.svg",
+    "twitterHandle": "@angular"
+  }
+}

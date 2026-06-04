@@ -1,0 +1,143 @@
+{
+  "featured": [
+    {
+      "id": "prod-aurora-jacket",
+      "slug": "aurora-performance-jacket",
+      "name": "Aurora Performance Jacket",
+      "shortDescription": "Lightweight shell with breathable panels for training in cool weather.",
+      "price": 129.99,
+      "currency": "USD",
+      "image": "/demo-testssr-seo/images/product-jacket.svg",
+      "category": "Outerwear",
+      "inStock": true,
+      "rating": 4.8,
+      "reviewCount": 214
+    },
+    {
+      "id": "prod-zen-runner",
+      "slug": "zen-flow-runner",
+      "name": "Zen Flow Runner",
+      "shortDescription": "Responsive cushioning and recycled upper for daily miles.",
+      "price": 89.5,
+      "currency": "USD",
+      "image": "/demo-testssr-seo/images/product-shoes.svg",
+      "category": "Footwear",
+      "inStock": true,
+      "rating": 4.6,
+      "reviewCount": 512
+    }
+  ],
+  "products": [
+    {
+      "id": "prod-aurora-jacket",
+      "slug": "aurora-performance-jacket",
+      "name": "Aurora Performance Jacket",
+      "shortDescription": "Lightweight shell with breathable panels for training in cool weather.",
+      "description": "The Aurora Performance Jacket combines wind-resistant ripstop with laser-cut ventilation. Ideal for early-morning runs and post-workout layers. Machine washable; ships carbon-neutral.",
+      "price": 129.99,
+      "currency": "USD",
+      "image": "/demo-testssr-seo/images/product-jacket.svg",
+      "images": [
+        "/demo-testssr-seo/images/product-jacket.svg",
+        "/demo-testssr-seo/images/product-jacket-alt.svg"
+      ],
+      "category": "Outerwear",
+      "sku": "APJ-2025-BLK",
+      "brand": "Demo Athletics",
+      "inStock": true,
+      "rating": 4.8,
+      "reviewCount": 214
+    },
+    {
+      "id": "prod-zen-runner",
+      "slug": "zen-flow-runner",
+      "name": "Zen Flow Runner",
+      "shortDescription": "Responsive cushioning and recycled upper for daily miles.",
+      "description": "Zen Flow Runner uses a dual-density midsole and wide toe box. The recycled mesh upper reduces weight while maintaining structure for 500+ mile durability tests.",
+      "price": 89.5,
+      "currency": "USD",
+      "image": "/demo-testssr-seo/images/product-shoes.svg",
+      "images": [
+        "/demo-testssr-seo/images/product-shoes.svg"
+      ],
+      "category": "Footwear",
+      "sku": "ZFR-2025-GRY",
+      "brand": "Demo Athletics",
+      "inStock": true,
+      "rating": 4.6,
+      "reviewCount": 512
+    },
+    {
+      "id": "prod-hydrate-bottle",
+      "slug": "hydra-insulated-bottle",
+      "name": "Hydra Insulated Bottle",
+      "shortDescription": "24h cold retention, BPA-free, fits standard bottle cages.",
+      "description": "Double-wall vacuum insulation keeps drinks cold for 24 hours. Powder-coated exterior resists scratches; leak-proof flip lid included.",
+      "price": 34,
+      "currency": "USD",
+      "image": "/demo-testssr-seo/images/product-bottle.svg",
+      "images": [
+        "/demo-testssr-seo/images/product-bottle.svg"
+      ],
+      "category": "Accessories",
+      "sku": "HIB-750-TEAL",
+      "brand": "Demo Athletics",
+      "inStock": true,
+      "rating": 4.9,
+      "reviewCount": 89
+    },
+    {
+      "id": "prod-yoga-mat",
+      "slug": "grounded-yoga-mat",
+      "name": "Grounded Yoga Mat",
+      "shortDescription": "Extra grip, 5mm natural rubber, alignment markers.",
+      "description": "Natural rubber base with microfiber top layer for sweat-heavy sessions. Alignment markers help posture without looking cluttered.",
+      "price": 58,
+      "currency": "USD",
+      "image": "/demo-testssr-seo/images/product-mat.svg",
+      "images": [
+        "/demo-testssr-seo/images/product-mat.svg"
+      ],
+      "category": "Wellness",
+      "sku": "GYM-5MM-SGE",
+      "brand": "Demo Athletics",
+      "inStock": false,
+      "rating": 4.7,
+      "reviewCount": 143
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "t1",
+      "author": "Sara M.",
+      "role": "Frontend Lead",
+      "quote": "This demo made our team finally understand why SSR matters for product pages.",
+      "avatar": "/demo-testssr-seo/images/avatar-1.svg"
+    },
+    {
+      "id": "t2",
+      "author": "Omar K.",
+      "role": "SEO Specialist",
+      "quote": "Seeing JSON-LD in View Source convinced us to adopt structured data site-wide.",
+      "avatar": "/demo-testssr-seo/images/avatar-2.svg"
+    }
+  ],
+  "relatedProductIds": {
+    "prod-aurora-jacket": [
+      "prod-zen-runner",
+      "prod-hydrate-bottle"
+    ],
+    "prod-zen-runner": [
+      "prod-aurora-jacket",
+      "prod-yoga-mat"
+    ],
+    "prod-hydrate-bottle": [
+      "prod-zen-runner",
+      "prod-yoga-mat"
+    ],
+    "prod-yoga-mat": [
+      "prod-hydrate-bottle",
+      "prod-aurora-jacket"
+    ]
+  }
+}

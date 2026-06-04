@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="en" data-beasties-container><head>
+    <meta charset="utf-8">
+    <title>Code Recipes — Reusable SSR &amp; SEO Snippets | Angular SSR &amp; SEO Demo</title>
+    <base href="/demo-testssr-seo/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Copy-paste Angular recipes for SSR, hydration, TransferState, and SEO meta tags, canonical URLs, Open Graph and JSON-LD.">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>:root{--text: #151821;--muted: #5c6370;--surface: #ffffff;--surface-elevated: #f4f6fa;--border: #e2e6ef;--accent: #3d5afe;--accent-dark: #2b3fc4;--accent-soft: #eef1ff;--bg: #f7f8fc;--good: #1a7f44;--good-soft: #eafaf0;--good-border: #b8e6c8;--bad: #c0392b;--bad-soft: #fdf1f0;--bad-border: #f3c9c4;--radius: 12px;--radius-lg: 18px;--shadow-sm: 0 1px 2px rgba(20, 24, 40, .06), 0 1px 1px rgba(20, 24, 40, .04);--shadow-md: 0 8px 24px rgba(20, 24, 40, .08);--shadow-lg: 0 18px 48px rgba(20, 24, 40, .12)}*,*:before,*:after{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Segoe UI,system-ui,-apple-system,sans-serif;background:radial-gradient(1200px 600px at 100% -10%,#eef1ff 0%,transparent 55%),radial-gradient(900px 500px at -10% 0%,#f0fbff 0%,transparent 50%),var(--bg);background-attachment:fixed;color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased}h1{font-size:clamp(1.85rem,4vw,2.6rem);line-height:1.15;letter-spacing:-.02em}h2{letter-spacing:-.01em}a{color:var(--accent)}code{font-family:Cascadia Code,Fira Code,ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;background:var(--surface-elevated);padding:.12em .4em;border-radius:5px;border:1px solid var(--border)}.page-head{padding:2.25rem 0 .5rem}.page-head .eyebrow{display:inline-block;color:var(--accent);font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem}.page-head p{color:var(--muted);max-width:60ch}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}.callout{display:flex;gap:.75rem;padding:.9rem 1.1rem;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface-elevated);font-size:.92rem}.callout .ico{font-size:1.2rem;line-height:1.4}.callout.good{background:var(--good-soft);border-color:var(--good-border)}.callout.bad{background:var(--bad-soft);border-color:var(--bad-border)}
+</style><link rel="stylesheet" href="styles-MV4NJGCN.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-MV4NJGCN.css"></noscript><style ng-app-id="ng">.container[_ngcontent-ng-c1232629563]{max-width:1100px;margin:0 auto;padding:0 1.5rem 2rem}</style><style ng-app-id="ng">.site-header[_ngcontent-ng-c2434802926]{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:0;z-index:10}.brand[_ngcontent-ng-c2434802926]{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:inherit;font-weight:700}.brand-mark[_ngcontent-ng-c2434802926]{background:var(--accent);color:#fff;padding:.2rem .45rem;border-radius:6px;font-size:.75rem}nav[_ngcontent-ng-c2434802926]{display:flex;flex-wrap:wrap;gap:.75rem 1rem}nav[_ngcontent-ng-c2434802926]   a[_ngcontent-ng-c2434802926]{color:var(--muted);text-decoration:none;font-size:.9rem}nav[_ngcontent-ng-c2434802926]   a.active[_ngcontent-ng-c2434802926], nav[_ngcontent-ng-c2434802926]   a[_ngcontent-ng-c2434802926]:hover{color:var(--text)}@media(max-width:720px){.site-header[_ngcontent-ng-c2434802926]{flex-direction:column;align-items:flex-start}}</style><style ng-app-id="ng">.site-footer[_ngcontent-ng-c1915252340]{margin-top:3rem;padding:2.25rem 1.5rem;border-top:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:.875rem}.cols[_ngcontent-ng-c1915252340]{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:1.5rem 2rem}@media(max-width:720px){.cols[_ngcontent-ng-c1915252340]{grid-template-columns:1fr}}.about[_ngcontent-ng-c1915252340]   strong[_ngcontent-ng-c1915252340]{color:var(--text)}.about[_ngcontent-ng-c1915252340]   p[_ngcontent-ng-c1915252340]{margin:.4rem 0 0;max-width:42ch}.col[_ngcontent-ng-c1915252340]{display:flex;flex-direction:column;gap:.4rem}.col-title[_ngcontent-ng-c1915252340]{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text);margin-bottom:.2rem}.col[_ngcontent-ng-c1915252340]   a[_ngcontent-ng-c1915252340]{color:var(--muted);text-decoration:none;width:fit-content}.col[_ngcontent-ng-c1915252340]   a[_ngcontent-ng-c1915252340]:hover{color:var(--accent)}</style><style ng-app-id="ng">[_nghost-ng-c2983979746]{display:block}em[_ngcontent-ng-c2983979746]{font-style:italic;color:var(--text)}.toc[_ngcontent-ng-c2983979746]{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1rem;padding:.85rem 1.2rem;margin:1.25rem 0 2rem}.toc-label[_ngcontent-ng-c2983979746]{font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}.toc[_ngcontent-ng-c2983979746]   a[_ngcontent-ng-c2983979746]{font-size:.88rem;font-weight:600;text-decoration:none;color:var(--accent);padding:.25rem .6rem;border-radius:999px;background:var(--accent-soft)}.toc[_ngcontent-ng-c2983979746]   a[_ngcontent-ng-c2983979746]:hover{background:#dde3ff}.recipe-group[_ngcontent-ng-c2983979746]{margin-top:2.5rem;scroll-margin-top:5rem}.recipe-group[_ngcontent-ng-c2983979746]   h2[_ngcontent-ng-c2983979746]{font-size:1.35rem;margin-bottom:.4rem}.group-lead[_ngcontent-ng-c2983979746]{color:var(--muted);max-width:72ch;margin:0 0 1.25rem}.callout[_ngcontent-ng-c2983979746]{margin-top:2rem}</style><style ng-app-id="ng">.snippet[_ngcontent-ng-c4253177702]{margin:0 0 1.25rem;border-radius:14px;overflow:hidden;border:1px solid #232a3d;box-shadow:var(--shadow-md);background:#0f1322}figcaption[_ngcontent-ng-c4253177702]{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.6rem .9rem;background:#161b2e;border-bottom:1px solid #232a3d}.meta[_ngcontent-ng-c4253177702]{display:flex;align-items:center;gap:.7rem;min-width:0}.dots[_ngcontent-ng-c4253177702]{display:inline-flex;gap:.3rem;flex:none}.dots[_ngcontent-ng-c4253177702]   i[_ngcontent-ng-c4253177702]{width:11px;height:11px;border-radius:50%;background:#3a425a}.dots[_ngcontent-ng-c4253177702]   i[_ngcontent-ng-c4253177702]:nth-child(1){background:#ff5f57}.dots[_ngcontent-ng-c4253177702]   i[_ngcontent-ng-c4253177702]:nth-child(2){background:#febc2e}.dots[_ngcontent-ng-c4253177702]   i[_ngcontent-ng-c4253177702]:nth-child(3){background:#28c840}.title[_ngcontent-ng-c4253177702]{color:#e7ebf6;font-size:.84rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.file[_ngcontent-ng-c4253177702]{color:#7e88a3;font-size:.76rem;font-family:Cascadia Code,ui-monospace,monospace}.right[_ngcontent-ng-c4253177702]{display:flex;align-items:center;gap:.6rem;flex:none}.lang[_ngcontent-ng-c4253177702]{color:#8b93ad;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}.copy[_ngcontent-ng-c4253177702]{border:1px solid #2c344a;background:#1d2438;color:#cdd5ea;font-size:.74rem;font-weight:600;padding:.3rem .7rem;border-radius:7px;cursor:pointer;transition:all .15s ease}.copy[_ngcontent-ng-c4253177702]:hover{background:#28324d;border-color:var(--accent);color:#fff}pre[_ngcontent-ng-c4253177702]{margin:0;padding:1rem 1.1rem;overflow-x:auto}code[_ngcontent-ng-c4253177702]{background:none;border:none;padding:0;font-family:Cascadia Code,Fira Code,ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82rem;line-height:1.65;color:#c7cee0;white-space:pre;tab-size:2}</style><link rel="canonical" href="https://demo.local/angular-ssr-seo/recipes"><meta property="og:title" content="Code Recipes — Reusable SSR &amp; SEO Snippets"><meta property="og:description" content="Copy-paste Angular recipes for SSR, hydration, TransferState, and SEO meta tags, canonical URLs, Open Graph and JSON-LD."><meta property="og:image" content="https://demo.local/angular-ssr-seo/images/og-default.svg"><meta property="og:url" content="https://demo.local/angular-ssr-seo/recipes"><meta property="og:type" content="website"><meta property="og:site_name" content="Angular SSR &amp; SEO Demo"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Code Recipes — Reusable SSR &amp; SEO Snippets"><meta name="twitter:description" content="Copy-paste Angular recipes for SSR, hydration, TransferState, and SEO meta tags, canonical URLs, Open Graph and JSON-LD."><meta name="twitter:image" content="https://demo.local/angular-ssr-seo/images/og-default.svg"><meta name="twitter:site" content="@angular"></head>
+  <body><!--nghm--><script type="text/javascript" id="ng-event-dispatch-contract">(()=>{function p(t,n,r,o,e,i,f,m){return{eventType:t,event:n,targetElement:r,eic:o,timeStamp:e,eia:i,eirp:f,eiack:m}}function u(t){let n=[],r=e=>{n.push(e)};return{c:t,q:n,et:[],etc:[],d:r,h:e=>{r(p(e.type,e,e.target,t,Date.now()))}}}function s(t,n,r){for(let o=0;o<n.length;o++){let e=n[o];(r?t.etc:t.et).push(e),t.c.addEventListener(e,t.h,r)}}function c(t,n,r,o,e=window){let i=u(t);e._ejsas||(e._ejsas={}),e._ejsas[n]=i,s(i,r),s(i,o,!0)}window.__jsaction_bootstrap=c;})();
+</script><script>window.__jsaction_bootstrap(document.body,"ng",["click"],[]);</script>
+    <app-root ng-version="20.3.24" _nghost-ng-c1232629563 ngh="3" ng-server-context="ssg"><app-site-header _ngcontent-ng-c1232629563 _nghost-ng-c2434802926 ngh="0"><header _ngcontent-ng-c2434802926 class="site-header"><a _ngcontent-ng-c2434802926 routerlink="/" class="brand" href="/demo-testssr-seo/" jsaction="click:;"><span _ngcontent-ng-c2434802926 class="brand-mark">SSR</span><span _ngcontent-ng-c2434802926 class="brand-text">Angular SSR &amp; SEO Demo</span></a><nav _ngcontent-ng-c2434802926 aria-label="Main"><a _ngcontent-ng-c2434802926 routerlink="/" routerlinkactive="active" href="/demo-testssr-seo/" class jsaction="click:;">Home</a><a _ngcontent-ng-c2434802926 routerlink="/products" routerlinkactive="active" href="/demo-testssr-seo/products" class jsaction="click:;">Products</a><a _ngcontent-ng-c2434802926 routerlink="/blog/understanding-ssr" routerlinkactive="active" href="/demo-testssr-seo/blog/understanding-ssr" class jsaction="click:;">Sample Article</a><a _ngcontent-ng-c2434802926 routerlink="/seo-comparison" routerlinkactive="active" href="/demo-testssr-seo/seo-comparison" class jsaction="click:;">SEO Compare</a><a _ngcontent-ng-c2434802926 routerlink="/google-preview" routerlinkactive="active" href="/demo-testssr-seo/google-preview" class jsaction="click:;">Google Preview</a><a _ngcontent-ng-c2434802926 routerlink="/recipes" routerlinkactive="active" href="/demo-testssr-seo/recipes" class="active" jsaction="click:;">Recipes</a><a _ngcontent-ng-c2434802926 routerlink="/transfer-state-demo" routerlinkactive="active" href="/demo-testssr-seo/transfer-state-demo" class jsaction="click:;">TransferState</a></nav></header></app-site-header><main _ngcontent-ng-c1232629563 class="container"><router-outlet _ngcontent-ng-c1232629563></router-outlet><app-recipes-page _nghost-ng-c2983979746 ngh="0"><section _ngcontent-ng-c2983979746 class="page-head"><span _ngcontent-ng-c2983979746 class="eyebrow">Copy · Paste · Reuse</span><h1 _ngcontent-ng-c2983979746>Code recipes</h1><p _ngcontent-ng-c2983979746> The exact SSR &amp; SEO patterns this demo uses, packaged as self-contained snippets. Hit <strong _ngcontent-ng-c2983979746>Copy</strong> and drop them into any Angular 17+ standalone project — no need to dig through this repo. </p></section><div _ngcontent-ng-c2983979746 class="toc card"><span _ngcontent-ng-c2983979746 class="toc-label">Jump to</span><a _ngcontent-ng-c2983979746 href="#ssr" jsaction="click:;">SSR &amp; Hydration</a><a _ngcontent-ng-c2983979746 href="#seo" jsaction="click:;">SEO meta tags</a><a _ngcontent-ng-c2983979746 href="#structured" jsaction="click:;">Canonical &amp; JSON-LD</a><a _ngcontent-ng-c2983979746 href="#transfer" jsaction="click:;">TransferState</a><a _ngcontent-ng-c2983979746 href="#missed" jsaction="click:;">Missed checks</a></div><section _ngcontent-ng-c2983979746 id="ssr" class="recipe-group"><h2 _ngcontent-ng-c2983979746>① SSR &amp; Hydration</h2><p _ngcontent-ng-c2983979746 class="group-lead"> Turn a client-only Angular app into a server-rendered one. The server sends complete HTML (great for SEO + first paint); the browser then <em _ngcontent-ng-c2983979746>hydrates</em> it instead of re-rendering. </p><app-code-snippet _ngcontent-ng-c2983979746 title="Add SSR to any Angular app" lang="bash" _nghost-ng-c4253177702 ngh="1"><figure _ngcontent-ng-c4253177702 class="snippet"><figcaption _ngcontent-ng-c4253177702><div _ngcontent-ng-c4253177702 class="meta"><span _ngcontent-ng-c4253177702 class="dots"><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i></span><span _ngcontent-ng-c4253177702 class="title">Add SSR to any Angular app</span><!----><!----></div><div _ngcontent-ng-c4253177702 class="right"><span _ngcontent-ng-c4253177702 class="lang">bash</span><button _ngcontent-ng-c4253177702 type="button" class="copy" jsaction="click:;"> Copy </button></div></figcaption><pre _ngcontent-ng-c4253177702><code _ngcontent-ng-c4253177702># Add SSR + hydration to an existing Angular app
+ng add @angular/ssr
+
+# Dev server (CSR + SSR)            Production SSR build
+npm start                           npm run build &amp;&amp; npm run serve:ssr</code></pre></figure></app-code-snippet><app-code-snippet _ngcontent-ng-c2983979746 title="Browser providers — hydration + fetch" file="app.config.ts" _nghost-ng-c4253177702 ngh="2"><figure _ngcontent-ng-c4253177702 class="snippet"><figcaption _ngcontent-ng-c4253177702><div _ngcontent-ng-c4253177702 class="meta"><span _ngcontent-ng-c4253177702 class="dots"><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i></span><span _ngcontent-ng-c4253177702 class="title">Browser providers — hydration + fetch</span><!----><span _ngcontent-ng-c4253177702 class="file">app.config.ts</span><!----></div><div _ngcontent-ng-c4253177702 class="right"><span _ngcontent-ng-c4253177702 class="lang">ts</span><button _ngcontent-ng-c4253177702 type="button" class="copy" jsaction="click:;"> Copy </button></div></figcaption><pre _ngcontent-ng-c4253177702><code _ngcontent-ng-c4253177702>import { ApplicationConfig } from '@angular/core';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideRouter(routes),
+
+    // Reuse server-rendered DOM instead of re-rendering on the client.
+    // withEventReplay() replays clicks made before hydration finished.
+    // provideClientHydration() also enables HttpClient transfer cache by default.
+    provideClientHydration(withEventReplay()),
+
+    // withFetch() lets HttpClient run during SSR (Node fetch).
+    provideHttpClient(withFetch()),
+  ],
+};</code></pre></figure></app-code-snippet><app-code-snippet _ngcontent-ng-c2983979746 title="Server providers" file="app.config.server.ts" _nghost-ng-c4253177702 ngh="2"><figure _ngcontent-ng-c4253177702 class="snippet"><figcaption _ngcontent-ng-c4253177702><div _ngcontent-ng-c4253177702 class="meta"><span _ngcontent-ng-c4253177702 class="dots"><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i></span><span _ngcontent-ng-c4253177702 class="title">Server providers</span><!----><span _ngcontent-ng-c4253177702 class="file">app.config.server.ts</span><!----></div><div _ngcontent-ng-c4253177702 class="right"><span _ngcontent-ng-c4253177702 class="lang">ts</span><button _ngcontent-ng-c4253177702 type="button" class="copy" jsaction="click:;"> Copy </button></div></figcaption><pre _ngcontent-ng-c4253177702><code _ngcontent-ng-c4253177702>import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
+import { provideServerRendering, withRoutes } from '@angular/ssr';
+import { appConfig } from './app.config';
+import { serverRoutes } from './app.routes.server';
+
+const serverConfig: ApplicationConfig = {
+  providers: [provideServerRendering(withRoutes(serverRoutes))],
+};
+
+// Server = browser config + server-only providers
+export const config = mergeApplicationConfig(appConfig, serverConfig);</code></pre></figure></app-code-snippet><app-code-snippet _ngcontent-ng-c2983979746 title="Per-route render strategy (prerender vs server)" file="app.routes.server.ts" _nghost-ng-c4253177702 ngh="2"><figure _ngcontent-ng-c4253177702 class="snippet"><figcaption _ngcontent-ng-c4253177702><div _ngcontent-ng-c4253177702 class="meta"><span _ngcontent-ng-c4253177702 class="dots"><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i></span><span _ngcontent-ng-c4253177702 class="title">Per-route render strategy (prerender vs server)</span><!----><span _ngcontent-ng-c4253177702 class="file">app.routes.server.ts</span><!----></div><div _ngcontent-ng-c4253177702 class="right"><span _ngcontent-ng-c4253177702 class="lang">ts</span><button _ngcontent-ng-c4253177702 type="button" class="copy" jsaction="click:;"> Copy </button></div></figcaption><pre _ngcontent-ng-c4253177702><code _ngcontent-ng-c4253177702>import { RenderMode, ServerRoute } from '@angular/ssr';
+
+export const serverRoutes: ServerRoute[] = [
+  // Static pages: render once at build time (fastest, cacheable)
+  { path: '', renderMode: RenderMode.Prerender },
+  { path: 'products', renderMode: RenderMode.Prerender },
+
+  // Dynamic slugs: render on each request on the server
+  { path: 'products/**', renderMode: RenderMode.Server },
+  { path: 'blog/**', renderMode: RenderMode.Server },
+
+  { path: '**', renderMode: RenderMode.Server },
+];</code></pre></figure></app-code-snippet><app-code-snippet _ngcontent-ng-c2983979746 title="Automatic HttpClient transfer cache" file="app.config.ts" _nghost-ng-c4253177702 ngh="2"><figure _ngcontent-ng-c4253177702 class="snippet"><figcaption _ngcontent-ng-c4253177702><div _ngcontent-ng-c4253177702 class="meta"><span _ngcontent-ng-c4253177702 class="dots"><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i></span><span _ngcontent-ng-c4253177702 class="title">Automatic HttpClient transfer cache</span><!----><span _ngcontent-ng-c4253177702 class="file">app.config.ts</span><!----></div><div _ngcontent-ng-c4253177702 class="right"><span _ngcontent-ng-c4253177702 class="lang">ts</span><button _ngcontent-ng-c4253177702 type="button" class="copy" jsaction="click:;"> Copy </button></div></figcaption><pre _ngcontent-ng-c4253177702><code _ngcontent-ng-c4253177702>// Angular hydration includes HttpClient transfer cache by default.
+// Server: cache matching HttpClient GET/HEAD responses.
+// Browser: reuse them during initial hydration instead of requesting again.
+
+import {
+  provideClientHydration,
+  withHttpTransferCacheOptions,
+} from '@angular/platform-browser';
+
+provideClientHydration(
+  withHttpTransferCacheOptions({
+    // Exclude user-specific or frequently-changing endpoints.
+    filter: (req) =&gt; !req.url.includes('/api/profile'),
+  })
+);
+
+// Per request: opt out when a response must not be serialized into HTML.
+this.http.get('/api/live-stock', { transferCache: false });</code></pre></figure></app-code-snippet></section><section _ngcontent-ng-c2983979746 id="seo" class="recipe-group"><h2 _ngcontent-ng-c2983979746>② SEO meta tags</h2><p _ngcontent-ng-c2983979746 class="group-lead"> One small service writes every tag a page needs. Because it runs during SSR, crawlers receive a fully-populated <code _ngcontent-ng-c2983979746>&lt;head&gt;</code> without executing JavaScript. </p><app-code-snippet _ngcontent-ng-c2983979746 title="The reusable SeoService.apply() core" file="core/services/seo.service.ts" _nghost-ng-c4253177702 ngh="2"><figure _ngcontent-ng-c4253177702 class="snippet"><figcaption _ngcontent-ng-c4253177702><div _ngcontent-ng-c4253177702 class="meta"><span _ngcontent-ng-c4253177702 class="dots"><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i></span><span _ngcontent-ng-c4253177702 class="title">The reusable SeoService.apply() core</span><!----><span _ngcontent-ng-c4253177702 class="file">core/services/seo.service.ts</span><!----></div><div _ngcontent-ng-c4253177702 class="right"><span _ngcontent-ng-c4253177702 class="lang">ts</span><button _ngcontent-ng-c4253177702 type="button" class="copy" jsaction="click:;"> Copy </button></div></figcaption><pre _ngcontent-ng-c4253177702><code _ngcontent-ng-c4253177702>// The reusable core: write title + meta into &lt;head&gt;.
+// On SSR this runs on the server too, so crawlers get full &lt;head&gt; in the HTML.
+apply(config: SeoConfig): void {
+  const canonicalUrl = this.absoluteUrl(config.canonicalPath);
+  const imageUrl = this.absoluteUrl(config.image ?? this.defaultImage);
+
+  // 1. Title — browser tab + the blue link in Google
+  this.title.setTitle(config.title + ' | ' + this.siteName);
+
+  // 2. Description — the grey snippet under the link
+  this.meta.updateTag({ name: 'description', content: config.description });
+
+  // 3. Robots — index public pages; noindex private/staging pages
+  this.meta.updateTag({
+    name: 'robots',
+    content: config.robots ?? 'index, follow, max-image-preview:large',
+  });
+
+  // 4. Canonical — the one true URL for this content (avoids duplicates)
+  this.setCanonical(canonicalUrl);
+
+  // 5. Open Graph — link previews on LinkedIn, Slack, Facebook
+  this.meta.updateTag({ property: 'og:title', content: config.title });
+  this.meta.updateTag({ property: 'og:description', content: config.description });
+  this.meta.updateTag({ property: 'og:image', content: imageUrl });
+  this.meta.updateTag({ property: 'og:url', content: canonicalUrl });
+  this.meta.updateTag({ property: 'og:type', content: config.type ?? 'website' });
+
+  // 6. Twitter Card — X/Twitter previews
+  this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+  this.meta.updateTag({ name: 'twitter:title', content: config.title });
+  this.meta.updateTag({ name: 'twitter:image', content: imageUrl });
+}</code></pre></figure></app-code-snippet><app-code-snippet _ngcontent-ng-c2983979746 title="Using it in a page (one call per route)" file="pages/product-detail/product-detail.page.ts" _nghost-ng-c4253177702 ngh="2"><figure _ngcontent-ng-c4253177702 class="snippet"><figcaption _ngcontent-ng-c4253177702><div _ngcontent-ng-c4253177702 class="meta"><span _ngcontent-ng-c4253177702 class="dots"><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i></span><span _ngcontent-ng-c4253177702 class="title">Using it in a page (one call per route)</span><!----><span _ngcontent-ng-c4253177702 class="file">pages/product-detail/product-detail.page.ts</span><!----></div><div _ngcontent-ng-c4253177702 class="right"><span _ngcontent-ng-c4253177702 class="lang">ts</span><button _ngcontent-ng-c4253177702 type="button" class="copy" jsaction="click:;"> Copy </button></div></figcaption><pre _ngcontent-ng-c4253177702><code _ngcontent-ng-c4253177702>// Call it once per route, in ngOnInit. That's the whole SEO contract for a page.
+export class ProductDetailPage implements OnInit {
+  private readonly seo = inject(SeoService);
+
+  ngOnInit(): void {
+    this.seo.apply({
+      title: product.name,
+      description: product.shortDescription,
+      canonicalPath: '/products/' + product.slug,
+      image: product.image,
+      type: 'product',
+    });
+  }
+}</code></pre></figure></app-code-snippet><div _ngcontent-ng-c2983979746 class="callout bad"><span _ngcontent-ng-c2983979746 class="ico">⚠️</span><div _ngcontent-ng-c2983979746><strong _ngcontent-ng-c2983979746>OG image gotcha:</strong> social crawlers (LinkedIn, Facebook, X) generally do <strong _ngcontent-ng-c2983979746>not</strong> render <code _ngcontent-ng-c2983979746>.svg</code> for <code _ngcontent-ng-c2983979746>og:image</code>. Use a raster <strong _ngcontent-ng-c2983979746>PNG/JPG around 1200×630</strong> with an absolute URL. This demo ships SVG placeholders for simplicity — swap them for real images before sharing links publicly. </div></div></section><section _ngcontent-ng-c2983979746 id="structured" class="recipe-group"><h2 _ngcontent-ng-c2983979746>③ Canonical URL &amp; JSON-LD</h2><p _ngcontent-ng-c2983979746 class="group-lead"> Canonical tags fix duplicate-URL problems; JSON-LD unlocks rich results (stars, price, FAQ). </p><app-code-snippet _ngcontent-ng-c2983979746 title="Canonical link helper" _nghost-ng-c4253177702 ngh="1"><figure _ngcontent-ng-c4253177702 class="snippet"><figcaption _ngcontent-ng-c4253177702><div _ngcontent-ng-c4253177702 class="meta"><span _ngcontent-ng-c4253177702 class="dots"><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i></span><span _ngcontent-ng-c4253177702 class="title">Canonical link helper</span><!----><!----></div><div _ngcontent-ng-c4253177702 class="right"><span _ngcontent-ng-c4253177702 class="lang">ts</span><button _ngcontent-ng-c4253177702 type="button" class="copy" jsaction="click:;"> Copy </button></div></figcaption><pre _ngcontent-ng-c4253177702><code _ngcontent-ng-c4253177702>// Canonical tells Google "index THIS url", collapsing ?utm/?sort duplicates.
+private setCanonical(url: string): void {
+  const head = this.document.head;
+  let link = head.querySelector&lt;HTMLLinkElement&gt;('link[rel="canonical"]');
+  if (!link) {
+    link = this.document.createElement('link');
+    link.setAttribute('rel', 'canonical');
+    head.appendChild(link);
+  }
+  link.setAttribute('href', url);
+}</code></pre></figure></app-code-snippet><app-code-snippet _ngcontent-ng-c2983979746 title="JSON-LD structured data" _nghost-ng-c4253177702 ngh="1"><figure _ngcontent-ng-c4253177702 class="snippet"><figcaption _ngcontent-ng-c4253177702><div _ngcontent-ng-c4253177702 class="meta"><span _ngcontent-ng-c4253177702 class="dots"><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i></span><span _ngcontent-ng-c4253177702 class="title">JSON-LD structured data</span><!----><!----></div><div _ngcontent-ng-c4253177702 class="right"><span _ngcontent-ng-c4253177702 class="lang">ts</span><button _ngcontent-ng-c4253177702 type="button" class="copy" jsaction="click:;"> Copy </button></div></figcaption><pre _ngcontent-ng-c4253177702><code _ngcontent-ng-c4253177702>// JSON-LD = machine-readable facts → rich results (stars, price, breadcrumbs).
+// Test at https://search.google.com/test/rich-results
+private setJsonLd(data: Record&lt;string, unknown&gt;): void {
+  this.document.getElementById('app-json-ld')?.remove();
+  const script = this.document.createElement('script');
+  script.type = 'application/ld+json';
+  script.id = 'app-json-ld';
+  script.textContent = JSON.stringify(data);
+  this.document.head.appendChild(script);
+}
+
+// Example payload for a product page:
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Zen Flow Runner',
+  offers: { '@type': 'Offer', price: 129, priceCurrency: 'USD' },
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: 4.8, reviewCount: 312 },
+};</code></pre></figure></app-code-snippet></section><section _ngcontent-ng-c2983979746 id="transfer" class="recipe-group"><h2 _ngcontent-ng-c2983979746>④ TransferState (skip the double fetch)</h2><p _ngcontent-ng-c2983979746 class="group-lead"> Without this, SSR fetches data on the server <em _ngcontent-ng-c2983979746>and</em> the browser fetches it again after hydration. TransferState ships the server result inside the HTML so the client reads it for free. Angular's built-in HttpClient transfer cache already handles many GET requests; manual TransferState is still useful for custom data sources or explicit cache control. </p><app-code-snippet _ngcontent-ng-c2983979746 title="Cache on the server, reuse on the client" _nghost-ng-c4253177702 ngh="1"><figure _ngcontent-ng-c4253177702 class="snippet"><figcaption _ngcontent-ng-c4253177702><div _ngcontent-ng-c4253177702 class="meta"><span _ngcontent-ng-c4253177702 class="dots"><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i></span><span _ngcontent-ng-c4253177702 class="title">Cache on the server, reuse on the client</span><!----><!----></div><div _ngcontent-ng-c4253177702 class="right"><span _ngcontent-ng-c4253177702 class="lang">ts</span><button _ngcontent-ng-c4253177702 type="button" class="copy" jsaction="click:;"> Copy </button></div></figcaption><pre _ngcontent-ng-c4253177702><code _ngcontent-ng-c4253177702>// Manual TransferState is useful for non-HttpClient data, custom caches,
+// or demos where you opt out of Angular's automatic HttpClient transfer cache.
+// Avoid the SSR "double fetch": cache the server response, reuse it on the client.
+const PRODUCTS_KEY = makeStateKey&lt;Product[]&gt;('products');
+
+getProducts(): Observable&lt;Product[]&gt; {
+  const cached = this.transferState.get(PRODUCTS_KEY, null);
+  if (cached) {
+    return of(cached); // browser: read synchronously, no second HTTP call
+  }
+  return this.http.get&lt;Product[]&gt;('/api/products', { transferCache: false }).pipe(
+    tap((data) =&gt; {
+      if (isPlatformServer(this.platformId)) {
+        this.transferState.set(PRODUCTS_KEY, data); // server: stash for the browser
+      }
+    })
+  );
+}</code></pre></figure></app-code-snippet></section><section _ngcontent-ng-c2983979746 id="missed" class="recipe-group"><h2 _ngcontent-ng-c2983979746>⑤ Things people usually miss</h2><p _ngcontent-ng-c2983979746 class="group-lead"> This checklist catches the common SSR/SEO gaps that do not show up just by clicking around the hydrated app. </p><app-code-snippet _ngcontent-ng-c2983979746 title="Pre-ship SSR/SEO checklist" lang="text" _nghost-ng-c4253177702 ngh="1"><figure _ngcontent-ng-c4253177702 class="snippet"><figcaption _ngcontent-ng-c4253177702><div _ngcontent-ng-c4253177702 class="meta"><span _ngcontent-ng-c4253177702 class="dots"><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i><i _ngcontent-ng-c4253177702></i></span><span _ngcontent-ng-c4253177702 class="title">Pre-ship SSR/SEO checklist</span><!----><!----></div><div _ngcontent-ng-c4253177702 class="right"><span _ngcontent-ng-c4253177702 class="lang">text</span><button _ngcontent-ng-c4253177702 type="button" class="copy" jsaction="click:;"> Copy </button></div></figcaption><pre _ngcontent-ng-c4253177702><code _ngcontent-ng-c4253177702>SSR/SEO checklist before shipping a real Angular route:
+
+1. View Page Source, not only Elements. The real title, text, and JSON-LD must be in raw HTML.
+2. Each indexable route needs one unique title, description, canonical URL, and robots rule.
+3. Use noindex on staging/private pages. Do not block those pages in robots.txt if you expect noindex to be seen.
+4. Use absolute PNG/JPG social images, ideally around 1200x630. Do not rely on SVG for og:image.
+5. Keep one stable, lowercase, hyphenated URL per page. Redirect old slugs with 301s.
+6. Add a sitemap.xml for real deployments and keep canonical URLs in it consistent.
+7. Validate structured data with Google's Rich Results Test and Schema.org Validator.
+8. Check HttpClient transfer cache: default is automatic; opt out for private or highly dynamic data.</code></pre></figure></app-code-snippet></section><div _ngcontent-ng-c2983979746 class="callout good"><span _ngcontent-ng-c2983979746 class="ico">📋</span><div _ngcontent-ng-c2983979746> These mirror the real files in <code _ngcontent-ng-c2983979746>src/app/</code>. Want to see them in action first? Use <strong _ngcontent-ng-c2983979746>SEO Compare</strong>, <strong _ngcontent-ng-c2983979746>Google Preview</strong> and the <strong _ngcontent-ng-c2983979746>TransferState</strong> lab from the nav, then come back here to copy the implementation. </div></div></app-recipes-page><!----></main><app-site-footer _ngcontent-ng-c1232629563 _nghost-ng-c1915252340 ngh="0"><footer _ngcontent-ng-c1915252340 class="site-footer"><div _ngcontent-ng-c1915252340 class="cols"><div _ngcontent-ng-c1915252340 class="col about"><strong _ngcontent-ng-c1915252340>Angular SSR &amp; SEO Demo</strong><p _ngcontent-ng-c1915252340>Knowledge-sharing project. No real API — data from <code _ngcontent-ng-c1915252340>/assets/data/*.json</code>.</p><p _ngcontent-ng-c1915252340 class="hint">💡 Keep View Page Source + the Network tab open while navigating.</p></div><nav _ngcontent-ng-c1915252340 aria-label="Demo pages" class="col"><span _ngcontent-ng-c1915252340 class="col-title">Explore</span><a _ngcontent-ng-c1915252340 routerlink="/seo-comparison" href="/demo-testssr-seo/seo-comparison" jsaction="click:;">SEO comparison</a><a _ngcontent-ng-c1915252340 routerlink="/google-preview" href="/demo-testssr-seo/google-preview" jsaction="click:;">Google preview</a><a _ngcontent-ng-c1915252340 routerlink="/recipes" href="/demo-testssr-seo/recipes" jsaction="click:;">Code recipes</a><a _ngcontent-ng-c1915252340 routerlink="/transfer-state-demo" href="/demo-testssr-seo/transfer-state-demo" jsaction="click:;">TransferState lab</a></nav><nav _ngcontent-ng-c1915252340 aria-label="External SEO tools" class="col"><span _ngcontent-ng-c1915252340 class="col-title">SEO tools</span><a _ngcontent-ng-c1915252340 href="https://search.google.com/test/rich-results" target="_blank" rel="noopener"> Rich Results Test ↗ </a><a _ngcontent-ng-c1915252340 href="https://validator.schema.org/" target="_blank" rel="noopener"> Schema validator ↗ </a><a _ngcontent-ng-c1915252340 href="https://search.google.com/search-console" target="_blank" rel="noopener"> Search Console ↗ </a><a _ngcontent-ng-c1915252340 href="https://www.linkedin.com/post-inspector/" target="_blank" rel="noopener"> LinkedIn Post Inspector ↗ </a></nav></div></footer></app-site-footer></app-root>
+  <link rel="modulepreload" href="chunk-FS34ZVPI.js"><link rel="modulepreload" href="chunk-ZHBFPEYG.js"><link rel="modulepreload" href="chunk-DFFTPAKI.js"><link rel="modulepreload" href="chunk-36ANJLTF.js"><script src="polyfills-5CFQRCPP.js" type="module"></script><script src="main-NASGWUZL.js" type="module"></script>
+<link rel="modulepreload" href="chunk-IAVPI7BK.js">
+<link rel="modulepreload" href="chunk-ZAVMCNRU.js">
+
+
+<script id="ng-state" type="application/json">{"__nghData__":[{},{"t":{"7":"t10","8":"t11"},"c":{"7":[{"i":"t10","r":1}],"8":[]}},{"t":{"7":"t10","8":"t11"},"c":{"7":[{"i":"t10","r":1}],"8":[{"i":"t11","r":1}]}},{"c":{"2":[{"i":"c2983979746","r":1}]}}]}</script></body></html>
