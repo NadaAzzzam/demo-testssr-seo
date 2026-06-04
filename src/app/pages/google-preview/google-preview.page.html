@@ -119,9 +119,10 @@
   &lt;head&gt;
     &lt;title&gt;{{ displayTitle() }}&lt;/title&gt;
 @if (seoEnabled()) {<span>    &lt;meta name="description" content="{{ description() }}"&gt;
+    &lt;meta name="robots" content="index, follow, max-image-preview:large"&gt;
     &lt;link rel="canonical" href="https://{{ domain() }}{{ path() }}"&gt;
     &lt;meta property="og:title" content="{{ title() }}"&gt;
-    &lt;script type="application/ld+json"&gt;&#123; "@type": "Article" &#125;&lt;/script&gt;</span>} @else {<span class="dim">    &lt;!-- ❌ no description, no canonical, no OG, no JSON-LD --&gt;</span>}
+    &lt;script type="application/ld+json"&gt;&#123; "@type": "Article" &#125;&lt;/script&gt;</span>} @else {<span class="dim">    &lt;!-- ❌ no description, no robots, no canonical, no OG, no JSON-LD --&gt;</span>}
   &lt;/head&gt;
   &lt;body&gt;
     <span class="hl">&lt;h1&gt;{{ title() }}&lt;/h1&gt;
@@ -163,6 +164,11 @@
           <td>Google scrapes random page text</td>
         </tr>
         <tr>
+          <td>Indexing / snippet rules</td>
+          <td><code>meta name="robots"</code></td>
+          <td>Private pages may be indexed, or previews may be limited unexpectedly</td>
+        </tr>
+        <tr>
           <td>Green URL / breadcrumb</td>
           <td><code>link rel="canonical"</code></td>
           <td>Duplicate-content risk across URLs</td>
@@ -184,9 +190,10 @@
   <div class="callout info">
     <span class="ico">💡</span>
     <div>
-      <strong>The SSR connection:</strong> Googlebot reads HTML <em>first</em>, and historically
-      doesn’t wait for slow JavaScript. With SSR <span class="badge good">ON</span>, the title,
-      description and content are already in the HTML — so the snippet above is reliable. With SSR
+      <strong>The SSR connection:</strong> crawlers receive HTML <em>first</em>, and not every
+      crawler reliably renders slow client JavaScript before indexing. With SSR
+      <span class="badge good">ON</span>, the title, description and content are already in the HTML
+      — so the snippet above is reliable. With SSR
       <span class="badge bad">OFF</span>, the crawler may only see <code>&lt;app-root&gt;&lt;/app-root&gt;</code>
       and your result looks empty. Try the toggles above and compare the “What Googlebot downloads” box.
     </div>

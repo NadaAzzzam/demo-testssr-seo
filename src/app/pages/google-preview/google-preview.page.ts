@@ -7,7 +7,7 @@ import { SeoService } from '../../core/services/seo.service';
  *
  *  1. "How does a page end up looking like THAT in Google?"
  *     → A live SERP (Search Engine Results Page) preview built purely from the
- *       same SEO fields (title, meta description, canonical URL) the SeoService
+ *       same SEO fields (title, meta description, robots, canonical URL) the SeoService
  *       writes into the `<head>`. Toggle SSR on/off and With/Without SEO to see
  *       how the snippet changes — including the empty `<app-root>` case.
  *

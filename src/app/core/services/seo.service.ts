@@ -54,7 +54,11 @@ export class SeoService {
     this.updateMetaTag('name', 'description', config.description);
 
     // Robots — page-level crawling/indexing hint. Keep staging/private pages noindex.
-    this.updateMetaTag('name', 'robots', config.robots ?? 'index, follow, max-image-preview:large');
+    this.updateMetaTag(
+      'name',
+      'robots',
+      config.robots ?? 'index, follow, max-image-preview:large'
+    );
 
     /**
      * Canonical URL tells search engines the preferred URL for this content.
@@ -93,12 +97,18 @@ export class SeoService {
     this.removeCanonical();
     this.removeJsonLd();
 
-    ['description', 'robots', 'twitter:card', 'twitter:title', 'twitter:description', 'twitter:image', 'twitter:site'].forEach((name) =>
-      this.meta.removeTag(`name="${name}"`)
-    );
+    [
+      'description',
+      'robots',
+      'twitter:card',
+      'twitter:title',
+      'twitter:description',
+      'twitter:image',
+      'twitter:site',
+    ].forEach((name) => this.meta.removeTag(`name="${name}"`));
 
-    ['og:title', 'og:description', 'og:image', 'og:url', 'og:type', 'og:site_name'].forEach((prop) =>
-      this.meta.removeTag(`property="${prop}"`)
+    ['og:title', 'og:description', 'og:image', 'og:url', 'og:type', 'og:site_name'].forEach(
+      (prop) => this.meta.removeTag(`property="${prop}"`)
     );
   }
 

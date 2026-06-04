@@ -14,6 +14,8 @@ export const appConfig: ApplicationConfig = {
     /**
      * Hydration reuses server-rendered DOM on the client.
      * withEventReplay() replays user clicks that happened before hydration finished.
+     * It also enables Angular's built-in HttpClient transfer cache for normal GET/HEAD
+     * requests; see fake-api.service.ts for a manual TransferState demo that opts out.
      */
     provideClientHydration(withEventReplay()),
     /** withFetch() enables HttpClient during SSR (Node fetch for JSON assets). */

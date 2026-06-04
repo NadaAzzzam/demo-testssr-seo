@@ -43,8 +43,8 @@
     @if (mode() === 'good') {
       <a class="serp-title" href="javascript:void(0)">SEO Comparison — Optimized Example</a>
       <p class="serp-desc">
-        This page demonstrates proper title, meta description, canonical URL, Open Graph, Twitter
-        Cards, and JSON-LD structured data.
+        This page demonstrates proper title, meta description, robots, canonical URL, Open Graph,
+        Twitter Cards, and JSON-LD structured data.
       </p>
     } @else {
       <a class="serp-title generic" href="javascript:void(0)">Angular App</a>
@@ -61,7 +61,8 @@
     <h2>✕ Without SEO (anti-pattern)</h2>
     <ul>
       <li>Generic title: <code>Angular App</code></li>
-      <li>Empty meta description</li>
+      <li>No meta description</li>
+      <li>No robots rule</li>
       <li>No canonical link</li>
       <li>No Open Graph / Twitter tags</li>
       <li>No JSON-LD structured data</li>
@@ -74,6 +75,7 @@
     <ul>
       <li>Unique, descriptive <code>&lt;title&gt;</code></li>
       <li>Meta description for snippets</li>
+      <li><code>meta name="robots"</code></li>
       <li><code>link rel="canonical"</code></li>
       <li>Open Graph: title, description, image, url</li>
       <li>Twitter Card tags</li>

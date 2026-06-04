@@ -39,7 +39,7 @@ export class SeoComparisonPage implements OnInit, OnDestroy {
     this.seo.apply({
       title: 'SEO Comparison — Optimized Example',
       description:
-        'This page demonstrates proper title, meta description, canonical URL, Open Graph, Twitter Cards, and JSON-LD.',
+        'This page demonstrates proper title, meta description, robots, canonical URL, Open Graph, Twitter Cards, and JSON-LD.',
       canonicalPath: '/seo-comparison',
       image: '/images/og-default.svg',
       structuredData: {

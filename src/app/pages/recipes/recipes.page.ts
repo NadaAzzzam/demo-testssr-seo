@@ -50,12 +50,32 @@ export const appConfig: ApplicationConfig = {
 
     // Reuse server-rendered DOM instead of re-rendering on the client.
     // withEventReplay() replays clicks made before hydration finished.
+    // provideClientHydration() also enables HttpClient transfer cache by default.
     provideClientHydration(withEventReplay()),
 
     // withFetch() lets HttpClient run during SSR (Node fetch).
     provideHttpClient(withFetch()),
   ],
 };`;
+
+  readonly httpTransferCache = `// Angular hydration includes HttpClient transfer cache by default.
+// Server: cache matching HttpClient GET/HEAD responses.
+// Browser: reuse them during initial hydration instead of requesting again.
+
+import {
+  provideClientHydration,
+  withHttpTransferCacheOptions,
+} from '@angular/platform-browser';
+
+provideClientHydration(
+  withHttpTransferCacheOptions({
+    // Exclude user-specific or frequently-changing endpoints.
+    filter: (req) => !req.url.includes('/api/profile'),
+  })
+);
+
+// Per request: opt out when a response must not be serialized into HTML.
+this.http.get('/api/live-stock', { transferCache: false });`;
 
   readonly serverConfig = `import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
 import { provideServerRendering, withRoutes } from '@angular/ssr';
@@ -97,17 +117,23 @@ apply(config: SeoConfig): void {
   // 2. Description — the grey snippet under the link
   this.meta.updateTag({ name: 'description', content: config.description });
 
-  // 3. Canonical — the one true URL for this content (avoids duplicates)
+  // 3. Robots — index public pages; noindex private/staging pages
+  this.meta.updateTag({
+    name: 'robots',
+    content: config.robots ?? 'index, follow, max-image-preview:large',
+  });
+
+  // 4. Canonical — the one true URL for this content (avoids duplicates)
   this.setCanonical(canonicalUrl);
 
-  // 4. Open Graph — link previews on LinkedIn, Slack, Facebook
+  // 5. Open Graph — link previews on LinkedIn, Slack, Facebook
   this.meta.updateTag({ property: 'og:title', content: config.title });
   this.meta.updateTag({ property: 'og:description', content: config.description });
   this.meta.updateTag({ property: 'og:image', content: imageUrl });
   this.meta.updateTag({ property: 'og:url', content: canonicalUrl });
   this.meta.updateTag({ property: 'og:type', content: config.type ?? 'website' });
 
-  // 5. Twitter Card — X/Twitter previews
+  // 6. Twitter Card — X/Twitter previews
   this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
   this.meta.updateTag({ name: 'twitter:title', content: config.title });
   this.meta.updateTag({ name: 'twitter:image', content: imageUrl });
@@ -160,7 +186,9 @@ const productSchema = {
   aggregateRating: { '@type': 'AggregateRating', ratingValue: 4.8, reviewCount: 312 },
 };`;
 
-  readonly transferState = `// Avoid the SSR "double fetch": cache the server response, reuse it on the client.
+  readonly transferState = `// Manual TransferState is useful for non-HttpClient data, custom caches,
+// or demos where you opt out of Angular's automatic HttpClient transfer cache.
+// Avoid the SSR "double fetch": cache the server response, reuse it on the client.
 const PRODUCTS_KEY = makeStateKey<Product[]>('products');
 
 getProducts(): Observable<Product[]> {
@@ -168,7 +196,7 @@ getProducts(): Observable<Product[]> {
   if (cached) {
     return of(cached); // browser: read synchronously, no second HTTP call
   }
-  return this.http.get<Product[]>('/api/products').pipe(
+  return this.http.get<Product[]>('/api/products', { transferCache: false }).pipe(
     tap((data) => {
       if (isPlatformServer(this.platformId)) {
         this.transferState.set(PRODUCTS_KEY, data); // server: stash for the browser
@@ -176,4 +204,15 @@ getProducts(): Observable<Product[]> {
     })
   );
 }`;
+
+  readonly missedChecks = `SSR/SEO checklist before shipping a real Angular route:
+
+1. View Page Source, not only Elements. The real title, text, and JSON-LD must be in raw HTML.
+2. Each indexable route needs one unique title, description, canonical URL, and robots rule.
+3. Use noindex on staging/private pages. Do not block those pages in robots.txt if you expect noindex to be seen.
+4. Use absolute PNG/JPG social images, ideally around 1200x630. Do not rely on SVG for og:image.
+5. Keep one stable, lowercase, hyphenated URL per page. Redirect old slugs with 301s.
+6. Add a sitemap.xml for real deployments and keep canonical URLs in it consistent.
+7. Validate structured data with Google's Rich Results Test and Schema.org Validator.
+8. Check HttpClient transfer cache: default is automatic; opt out for private or highly dynamic data.`;
 }

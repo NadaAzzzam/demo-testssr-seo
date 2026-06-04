@@ -14,6 +14,7 @@
   <a href="#seo">SEO meta tags</a>
   <a href="#structured">Canonical &amp; JSON-LD</a>
   <a href="#transfer">TransferState</a>
+  <a href="#missed">Missed checks</a>
 </div>
 
 <!-- SSR -->
@@ -43,6 +44,11 @@
     title="Per-route render strategy (prerender vs server)"
     file="app.routes.server.ts"
     [code]="serverRoutes"
+  />
+  <app-code-snippet
+    title="Automatic HttpClient transfer cache"
+    file="app.config.ts"
+    [code]="httpTransferCache"
   />
 </section>
 
@@ -93,9 +99,21 @@
   <p class="group-lead">
     Without this, SSR fetches data on the server <em>and</em> the browser fetches it again after
     hydration. TransferState ships the server result inside the HTML so the client reads it for free.
+    Angular's built-in HttpClient transfer cache already handles many GET requests; manual
+    TransferState is still useful for custom data sources or explicit cache control.
   </p>
 
   <app-code-snippet title="Cache on the server, reuse on the client" [code]="transferState" />
+</section>
+
+<section id="missed" class="recipe-group">
+  <h2>⑤ Things people usually miss</h2>
+  <p class="group-lead">
+    This checklist catches the common SSR/SEO gaps that do not show up just by clicking around the
+    hydrated app.
+  </p>
+
+  <app-code-snippet title="Pre-ship SSR/SEO checklist" lang="text" [code]="missedChecks" />
 </section>
 
 <div class="callout good">

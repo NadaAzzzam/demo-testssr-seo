@@ -4,7 +4,7 @@
 
 **An interactive, presentation-ready playground for teaching Server-Side Rendering, Hydration, TransferState and SEO in Angular 20.**
 
-**Live demo:** [https://6e3e5d712a1cfe.lhr.life](https://6e3e5d712a1cfe.lhr.life)
+**Live demo:** [https://898f06b819ddde.lhr.life](https://898f06b819ddde.lhr.life)
 
 `Angular 20` · `Standalone` · `@angular/ssr` · `Hydration` · `SCSS` · `No backend — local JSON only`
 
@@ -19,10 +19,11 @@
 - [Tour of the pages](#-tour-of-the-pages)
 - [What this project teaches](#-what-this-project-teaches)
 - [The big ideas, explained](#-the-big-ideas-explained)
-  - [SSR](#ssr--server-side-rendering) · [Hydration](#hydration) · [TransferState](#transferstate) · [SEO](#seo) · [JSON-LD](#structured-data-json-ld) · [URLs](#-urls--routes-are-an-seo-signal)
+  - [SSR](#ssr--server-side-rendering) · [Hydration](#hydration) · [HTTP cache](#angulars-automatic-http-transfer-cache) · [TransferState](#transferstate) · [SEO](#seo) · [JSON-LD](#structured-data-json-ld) · [URLs](#-urls--routes-are-an-seo-signal)
 - [How a page becomes a Google result](#-how-a-page-becomes-a-google-result)
 - [Verifying a domain (DNS TXT → Namecheap)](#-verifying-a-domain-in-google-search-console)
 - [How to test it yourself](#-how-to-test-it-yourself)
+- [Things people usually miss](#-things-people-usually-miss)
 - [Mock “API” & project structure](#-mock-api-json-files)
 - [Suggested presentation flow](#-suggested-presentation-flow-3045-min)
 - [Tech stack](#-tech-stack)
@@ -41,7 +42,7 @@ There is **no real backend**. All data comes from local JSON files that mimic RE
 
 ## ⚡ Quick start
 
-**Live demo (SSR):** [https://6e3e5d712a1cfe.lhr.life](https://6e3e5d712a1cfe.lhr.life) — use *View Page Source* to verify server-rendered HTML.
+**Live demo (SSR):** [https://898f06b819ddde.lhr.life](https://898f06b819ddde.lhr.life) — use *View Page Source* to verify server-rendered HTML.
 
 ```bash
 cd D:\Work\Nada\demo-testssr-seo
@@ -81,8 +82,9 @@ npm run serve:ssr
 |-------|----------------|
 | **SSR** | Any page — *View Page Source* shows rendered HTML |
 | **Hydration** | `app.config.ts` → `provideClientHydration(withEventReplay())` |
+| **Automatic HttpClient transfer cache** | `app.config.ts` + `/recipes` |
 | **Render strategy** | `app.routes.server.ts` → `Prerender` vs `Server` |
-| **SEO (title, meta, OG, Twitter, canonical)** | `core/services/seo.service.ts` |
+| **SEO (title, meta, robots, OG, Twitter, canonical)** | `core/services/seo.service.ts` |
 | **JSON-LD structured data** | Home (Organization), blog (Article), product (Product) |
 | **TransferState** | `/transfer-state-demo` + `fake-api.service.ts` |
 | **URL / route hygiene** | `shared/components/url-seo-note` on home/products/detail |
@@ -110,15 +112,23 @@ GET /  → <app-root></app-root>   GET /  → <h1>Real title</h1><article>…ful
 
 After the server HTML arrives, the client **reuses** that DOM and attaches event listeners instead of throwing it away and re-rendering. `withEventReplay()` even **replays clicks** that happened before hydration finished — no lost interactions.
 
+### Angular's automatic HTTP transfer cache
+
+Modern Angular hydration also caches normal `HttpClient` GET/HEAD responses rendered on the server and reuses them during initial browser hydration. This means many API calls already avoid the classic SSR double-fetch.
+
+Configure it with `withHttpTransferCacheOptions(...)`, or opt out per request with `{ transferCache: false }` for private, user-specific, or highly dynamic responses.
+
 ### TransferState
 
-During SSR the server fetches your JSON. **Without** TransferState the browser fetches it **again** after hydration → duplicate work, slower TTI. **With** TransferState the server embeds its result in the page and the client reads it **synchronously — one fetch**.
+During SSR the server fetches your JSON. **Without** any transfer cache the browser fetches it **again** after hydration → duplicate work, slower TTI. **With** TransferState the server embeds its result in the page and the client reads it **synchronously — one fetch**.
+
+Manual `TransferState` is still useful for non-`HttpClient` data, custom cache keys, or demos like `/transfer-state-demo`, where `products.json` opts out of Angular's automatic cache so the before/after stays visible.
 
 > 🧪 Test: `/transfer-state-demo` → DevTools **Network** → filter `products.json` → hard-refresh under `npm run serve:ssr`.
 
 ### SEO
 
-Every public route gets a unique `<title>`, meta `description`, `canonical` URL, Open Graph and Twitter tags — all written by **one** `SeoService.apply()` call. Because it runs during SSR, the tags are in the **initial HTML**, so crawlers don’t have to run JS to find them.
+Every public route gets a unique `<title>`, meta `description`, `robots`, `canonical` URL, Open Graph and Twitter tags — all written by **one** `SeoService.apply()` call. Because it runs during SSR, the tags are in the **initial HTML**, so crawlers don’t have to run JS to find them.
 
 > ⚠️ **OG image gotcha:** social crawlers don’t render **SVG** for `og:image`. Use a raster **PNG/JPG ~1200×630** with an absolute URL. This demo ships SVG placeholders for simplicity — swap them before sharing links publicly.
 
@@ -149,6 +159,7 @@ Open **`/google-preview`** to see this live. Google does **not** invent the snip
 |-------------|---------------|-------------|
 | Blue clickable headline | `<title>` / `og:title` | Google guesses from `<h1>` or domain |
 | Grey description snippet | `meta name="description"` | Google scrapes random page text |
+| Indexing / snippet rules | `meta name="robots"` | private pages may be indexed, or previews may be limited unexpectedly |
 | Green URL / breadcrumb | `link rel="canonical"` | duplicate-content risk |
 | ⭐ Stars, price, FAQ | **JSON-LD** structured data | plain result, no rich features |
 | Social share card | `og:*` / `twitter:*` | ugly bare-link preview |
@@ -182,11 +193,25 @@ Before Google shows you *your* analytics (and lets you request indexing), you mu
 ## ✅ How to test it yourself
 
 1. **View Page Source** (not just Elements) on `/`, `/products/zen-flow-runner`, `/blog/understanding-ssr` — find the real text in the HTML (proof of SSR).
-2. **DevTools → Elements → `<head>`** — confirm `title`, `description`, `canonical`, `og:*`, `twitter:*`.
+2. **DevTools → Elements → `<head>`** — confirm `title`, `description`, `robots`, `canonical`, `og:*`, `twitter:*`.
 3. **`/seo-comparison`** — flip the toggle and watch the `<head>` **and** the Google snippet change together.
 4. **`/google-preview`** — edit fields, toggle SSR/SEO, walk the DNS verification.
 5. **Rich Results / Schema validators** — paste a deployed URL or the HTML snippet.
 6. **Social debuggers** — LinkedIn Post Inspector, Facebook Sharing Debugger (needs a public URL).
+
+---
+
+## 🧩 Things people usually miss
+
+| Check | Why it matters |
+|-------|----------------|
+| Use **View Page Source** or `curl`, not only DevTools Elements | Elements shows the hydrated DOM; source proves what crawlers receive first. |
+| Add `robots` deliberately | Public pages usually `index, follow`; staging/private pages should be `noindex, nofollow`. |
+| Do not block a `noindex` page in `robots.txt` | If Google cannot crawl the page, it may never see the `noindex` tag. |
+| Add `sitemap.xml` on real deployments | It helps discovery and should list the same canonical URLs your pages emit. |
+| Use raster social images | `og:image` should be an absolute PNG/JPG, ideally about `1200x630`; SVG previews are unreliable. |
+| Watch Angular's built-in HTTP transfer cache | It is on by default with hydration; opt out for sensitive or highly dynamic responses. |
+| Keep slugs stable | If a slug changes, ship a `301` redirect so ranking signals do not reset. |
 
 ---
 
@@ -243,7 +268,7 @@ public/images/                 # placeholder OG/product assets
 ## 🛠 Tech stack
 
 - **Angular 20** standalone components + signals
-- **`@angular/ssr`** with hydration (`withEventReplay`) and `withFetch()` HttpClient
+- **`@angular/ssr`** with hydration (`withEventReplay`) and HttpClient transfer cache
 - **SCSS**, lazy routes, `@defer` blocks
 - **RxJS** + `HttpClient` over local JSON
 

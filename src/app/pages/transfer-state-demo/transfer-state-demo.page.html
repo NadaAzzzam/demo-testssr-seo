@@ -44,4 +44,9 @@
     the browser bootstraps the same app and subscriptions run again — another fetch unless you
     reuse server data via <strong>TransferState</strong>.
   </p>
+  <p>
+    In modern Angular, <code>provideClientHydration()</code> already includes an automatic
+    HttpClient transfer cache for normal GET/HEAD requests. This lab disables that automatic cache
+    only for <code>products.json</code> so the manual TransferState pattern is visible.
+  </p>
 </aside>
