@@ -1,4 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SeoService } from '../../core/services/seo.service';
 import { CodeSnippetComponent } from '../../shared/components/code-snippet/code-snippet.component';
 
@@ -17,8 +27,13 @@ import { CodeSnippetComponent } from '../../shared/components/code-snippet/code-
   templateUrl: './recipes.page.html',
   styleUrl: './recipes.page.scss',
 })
-export class RecipesPage implements OnInit {
+export class RecipesPage implements OnInit, AfterViewInit {
   private readonly seo = inject(SeoService);
+  private readonly document = inject(DOCUMENT);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   ngOnInit(): void {
     this.seo.apply({
@@ -27,6 +42,45 @@ export class RecipesPage implements OnInit {
         'Copy-paste Angular recipes for SSR, hydration, TransferState, and SEO meta tags, canonical URLs, Open Graph and JSON-LD.',
       canonicalPath: '/recipes',
       image: '/images/og-default.svg',
+    });
+  }
+
+  ngAfterViewInit(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    const scrollIfPresent = (fragment: string | null): void => {
+      if (!fragment) {
+        return;
+      }
+      requestAnimationFrame(() => this.scrollToElement(fragment));
+    };
+
+    scrollIfPresent(this.route.snapshot.fragment);
+
+    this.route.fragment
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(scrollIfPresent);
+  }
+
+  /** In-page TOC: Angular does not scroll same-route #fragments reliably. */
+  scrollToSection(sectionId: string, event: Event): void {
+    event.preventDefault();
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+    this.scrollToElement(sectionId);
+    void this.router.navigate([], {
+      fragment: sectionId,
+      replaceUrl: true,
+      queryParamsHandling: 'preserve',
+    });
+  }
+
+  private scrollToElement(sectionId: string): void {
+    this.document.getElementById(sectionId)?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
     });
   }
 
