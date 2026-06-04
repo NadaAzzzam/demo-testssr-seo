@@ -12,7 +12,8 @@
     "test": "ng test",
     "serve:ssr": "node dist/demo-testssr-seo/server/server.mjs",
     "serve:ssr:demo-testssr-seo": "node dist/demo-testssr-seo/server/server.mjs",
-    "start:prod": "node dist/demo-testssr-seo/server/server.mjs"
+    "start:prod": "node dist/demo-testssr-seo/server/server.mjs",
+    "build:github-pages": "node scripts/prepare-github-pages.mjs && node scripts/build-github-pages.mjs && node scripts/post-github-pages.mjs"
   },
   "engines": {
     "node": ">=20.19.0"

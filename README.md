@@ -4,7 +4,7 @@
 
 **An interactive, presentation-ready playground for teaching Server-Side Rendering, Hydration, TransferState and SEO in Angular 20.**
 
-**Live demo:** [https://898f06b819ddde.lhr.life](https://898f06b819ddde.lhr.life)
+**Live demo:** [https://nadaazzzam.github.io/demo-testssr-seo/](https://nadaazzzam.github.io/demo-testssr-seo/)
 
 `Angular 20` · `Standalone` · `@angular/ssr` · `Hydration` · `SCSS` · `No backend — local JSON only`
 
@@ -42,7 +42,7 @@ There is **no real backend**. All data comes from local JSON files that mimic RE
 
 ## ⚡ Quick start
 
-**Live demo (SSR):** [https://898f06b819ddde.lhr.life](https://898f06b819ddde.lhr.life) — use *View Page Source* to verify server-rendered HTML.
+**Live demo:** [https://nadaazzzam.github.io/demo-testssr-seo/](https://nadaazzzam.github.io/demo-testssr-seo/) — use *View Page Source* to verify prerendered HTML.
 
 ```bash
 cd D:\Work\Nada\demo-testssr-seo
@@ -58,6 +58,25 @@ npm run serve:ssr
 ```
 
 > 💡 **For SEO demos always use the SSR build** (`serve:ssr`). Only then does *View Page Source* show fully-rendered HTML with the meta tags already in place.
+
+### GitHub Pages (static hosting)
+
+[GitHub Pages](https://pages.github.com/) serves **static files only** — no Node.js runtime. This project deploys as a **prerendered static site** (SSG): HTML is generated at build time, so *View Page Source* still shows full content and meta tags, but there is no live SSR server.
+
+```bash
+# Local static build (optional)
+npm run build:github-pages
+# output → dist/demo-testssr-seo/browser
+```
+
+**Deploy steps:**
+
+1. Push this repo to GitHub (e.g. `demo-testssr-seo`).
+2. **Settings → Pages → Build and deployment → Source:** choose **GitHub Actions**.
+3. Push to `main` — the workflow `.github/workflows/deploy-github-pages.yml` builds and publishes automatically.
+4. Your site will be at `https://<username>.github.io/<repo-name>/`.
+
+> If the repo name is not `demo-testssr-seo`, the workflow sets `baseHref` automatically. For **live SSR** (TransferState lab, on-demand rendering), use `npm run serve:ssr` locally or deploy to [Render](render.yaml) instead.
 
 ---
 
