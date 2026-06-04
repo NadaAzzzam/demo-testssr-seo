@@ -1,0 +1,50 @@
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+.pattern {
+  font-size: 0.95rem;
+}
+.count {
+  color: var(--muted);
+}
+.names {
+  columns: 2;
+  margin: 1rem 0;
+}
+.log {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: var(--surface-elevated);
+  border-radius: 10px;
+}
+.log li {
+  margin: 0.35rem 0;
+  font-family: ui-monospace, monospace;
+  font-size: 0.85rem;
+}
+.phase {
+  display: inline-block;
+  min-width: 4.5rem;
+  font-weight: 600;
+}
+.server .phase {
+  color: #1a5fb4;
+}
+.browser .phase {
+  color: #813d9c;
+}
+.ts {
+  background: #2ec27e33;
+  padding: 0 0.35rem;
+  border-radius: 4px;
+  margin-right: 0.35rem;
+}
+.explain {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-left: 4px solid var(--accent);
+  background: var(--surface);
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Yoga Mat">
+  <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#558b2f"/><stop offset="100%" stop-color="#9ccc65"/>
+  </linearGradient></defs>
+  <rect width="100%" height="100%" fill="url(#g)"/>
+  <text x="50%" y="50%" fill="#fff" font-family="Segoe UI,system-ui,sans-serif" font-size="43" font-weight="600" text-anchor="middle" dominant-baseline="middle">Yoga Mat</text>
+</svg>

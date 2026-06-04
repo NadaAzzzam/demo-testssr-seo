@@ -1,0 +1,15 @@
+.hero-img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+.meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.body :deep(p) {
+  line-height: 1.7;
+  margin: 1rem 0;
+}

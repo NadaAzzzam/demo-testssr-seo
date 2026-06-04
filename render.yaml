@@ -1,0 +1,21 @@
+# Render.com — free Node.js hosting for Angular SSR
+# Docs: https://render.com/docs/deploy-node-express-app
+#
+# After deploy, set NG_ALLOWED_HOSTS to your Render URL (see envVars below)
+# and update src/assets/data/site.json → defaultSeo.baseUrl to match.
+
+services:
+  - type: web
+    name: demo-testssr-seo
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      # Replace with your actual hostname after first deploy, e.g. demo-testssr-seo.onrender.com
+      - key: NG_ALLOWED_HOSTS
+        value: demo-testssr-seo.onrender.com
+      - key: NG_TRUST_PROXY_HEADERS
+        value: x-forwarded-for,x-forwarded-host,x-forwarded-proto,x-forwarded-port

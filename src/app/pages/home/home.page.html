@@ -1,0 +1,76 @@
+@if (vm$ | async; as vm) {
+  <!-- SSR: This hero HTML is generated on the server before hydration -->
+  <section class="hero">
+    <p class="eyebrow">Angular 20 · Standalone · SSR · Hydration</p>
+    <h1>Server-Side Rendering &amp; SEO Best Practices</h1>
+    <p class="lead">
+      Educational demo for frontend teams. All data comes from local JSON files that simulate
+      REST APIs — no backend required.
+    </p>
+    <div class="hero-actions">
+      <a routerLink="/products" class="btn primary">Browse products</a>
+      <a routerLink="/google-preview" class="btn ghost">🔎 Google preview</a>
+      <a routerLink="/seo-comparison" class="btn ghost">Compare SEO</a>
+      <a routerLink="/transfer-state-demo" class="btn ghost">TransferState lab</a>
+    </div>
+    <p class="ssr-note">
+      <strong>View Page Source</strong> on this URL: you should see product and article titles in
+      the raw HTML (server-rendered content).
+    </p>
+  </section>
+
+  <app-url-seo-note
+    heading="Clean routes are an SEO signal — even on the homepage"
+    [good]="[
+      'https://site.com/',
+      'https://site.com/products',
+      'https://site.com/blog/understanding-ssr'
+    ]"
+    [bad]="[
+      'https://site.com/#/home',
+      'https://site.com/index.html?page=home',
+      'https://site.com/?p=1&ref=nav&utm_x=1'
+    ]"
+    tip="Use real, crawlable paths (not hash #/ routes), lowercase words, and hyphens. Each public page should have ONE canonical URL — extra query params create duplicate URLs that dilute ranking."
+  />
+
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Featured articles</h2>
+      <a routerLink="/blog/understanding-ssr">Read SSR guide →</a>
+    </div>
+    <div class="grid articles">
+      @for (article of vm.articles; track article.id) {
+        <app-article-card [article]="article" />
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Featured products</h2>
+      <a routerLink="/products">Full catalog →</a>
+    </div>
+    <div class="grid products">
+      @for (product of vm.products; track product.id) {
+        <app-product-card [product]="product" />
+      }
+    </div>
+  </section>
+
+  <!--
+    @defer: Testimonials are below the fold — defer loading until the main thread is idle.
+    This improves LCP and keeps initial bundle smaller for the home route.
+  -->
+  @defer (on viewport) {
+    <section class="section testimonials">
+      <h2>What teams say</h2>
+      <app-home-testimonials />
+    </section>
+  } @placeholder {
+    <p class="defer-placeholder">Testimonials loading when scrolled into view…</p>
+  }
+} @else {
+  <p class="loading">Loading home content (simulated API delay)…</p>
+}

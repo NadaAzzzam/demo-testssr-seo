@@ -1,0 +1,94 @@
+<section class="page-head">
+  <span class="eyebrow">Live demo</span>
+  <h1>SEO comparison lab</h1>
+  <p>
+    Flip the switch and watch <strong>two things</strong> change at once: the real page
+    <strong>&lt;head&gt;</strong> (open DevTools → Elements), and the mock Google result below — so
+    your teammate sees <em>why</em> the meta tags matter.
+  </p>
+</section>
+
+<div class="toggle">
+  <button type="button" [class.active]="mode() === 'bad'" (click)="setMode('bad')">
+    ✕ Without SEO
+  </button>
+  <button type="button" [class.active]="mode() === 'good'" (click)="setMode('good')">
+    ✓ With SEO
+  </button>
+</div>
+
+<!-- Live Google result preview -->
+<div class="serp-preview" [class.bad]="mode() === 'bad'">
+  <div class="serp-label">
+    How Google would show this page
+    <span class="badge" [class.good]="mode() === 'good'" [class.bad]="mode() === 'bad'">
+      {{ mode() === 'good' ? 'Optimized' : 'Unoptimized' }}
+    </span>
+  </div>
+
+  <div class="serp-result">
+    <div class="serp-site">
+      <span class="favicon">{{ mode() === 'good' ? 'A' : '?' }}</span>
+      <div class="serp-host">
+        @if (mode() === 'good') {
+          <span class="host">demo.local</span>
+          <span class="url">https://demo.local › seo-comparison</span>
+        } @else {
+          <span class="host">demo.local</span>
+          <span class="url">https://demo.local/some/uncanonical?ref=123</span>
+        }
+      </div>
+    </div>
+
+    @if (mode() === 'good') {
+      <a class="serp-title" href="javascript:void(0)">SEO Comparison — Optimized Example</a>
+      <p class="serp-desc">
+        This page demonstrates proper title, meta description, canonical URL, Open Graph, Twitter
+        Cards, and JSON-LD structured data.
+      </p>
+    } @else {
+      <a class="serp-title generic" href="javascript:void(0)">Angular App</a>
+      <p class="serp-desc guessed">
+        No description available — Google scrapes leftover text from the page, often a navbar or
+        random sentence…
+      </p>
+    }
+  </div>
+</div>
+
+<div class="panels">
+  <div class="panel bad" [class.hidden]="mode() !== 'bad'">
+    <h2>✕ Without SEO (anti-pattern)</h2>
+    <ul>
+      <li>Generic title: <code>Angular App</code></li>
+      <li>Empty meta description</li>
+      <li>No canonical link</li>
+      <li>No Open Graph / Twitter tags</li>
+      <li>No JSON-LD structured data</li>
+    </ul>
+    <p class="warn">Social shares and Google snippets will look poor and untrustworthy.</p>
+  </div>
+
+  <div class="panel good" [class.hidden]="mode() !== 'good'">
+    <h2>✓ With SEO (recommended)</h2>
+    <ul>
+      <li>Unique, descriptive <code>&lt;title&gt;</code></li>
+      <li>Meta description for snippets</li>
+      <li><code>link rel="canonical"</code></li>
+      <li>Open Graph: title, description, image, url</li>
+      <li>Twitter Card tags</li>
+      <li>JSON-LD <code>WebPage</code> schema</li>
+    </ul>
+    <p class="ok">Use <code>SeoService.apply()</code> on every public route.</p>
+  </div>
+</div>
+
+<div class="callout info">
+  <span class="ico">🔎</span>
+  <div>
+    Try <strong>View Page Source</strong> after an SSR build — with “With SEO” the optimized meta
+    tags are present in the <em>initial</em> HTML, so crawlers get them without running JavaScript.
+    Want to see the full domain-to-Google journey? Head to
+    <a routerLink="/google-preview">Google Preview</a>.
+  </div>
+</div>

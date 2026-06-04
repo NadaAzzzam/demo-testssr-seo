@@ -1,0 +1,40 @@
+.detail {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 768px) {
+  .detail {
+    grid-template-columns: 1fr;
+  }
+}
+.gallery img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+.badge {
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+.price {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.out {
+  color: #c0392b;
+}
+.related,
+.comments-block {
+  margin-top: 2.5rem;
+}
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+.defer-hint,
+.defer-placeholder {
+  color: var(--muted);
+  font-size: 0.9rem;
+}

@@ -1,0 +1,11 @@
+.page-head {
+  margin-bottom: 1.5rem;
+}
+.grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+.loading {
+  color: var(--muted);
+}

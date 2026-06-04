@@ -1,0 +1,20 @@
+@if (article$ | async; as article) {
+  <article>
+    <img
+      [src]="article.image"
+      [alt]="'Hero image: ' + article.title"
+      width="960"
+      height="480"
+      class="hero-img"
+    />
+    <p class="meta">
+      <time [attr.datetime]="article.publishedAt">{{ article.publishedAt | date: 'longDate' }}</time>
+      · {{ article.author }} · {{ article.readMinutes }} min
+    </p>
+    <h1>{{ article.title }}</h1>
+    <!-- SSR: article body HTML is in the server response -->
+    <div class="body" [innerHTML]="article.body"></div>
+  </article>
+} @else {
+  <p>Article not found or loading…</p>
+}

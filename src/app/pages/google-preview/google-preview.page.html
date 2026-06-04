@@ -1,0 +1,315 @@
+<section class="page-head">
+  <span class="eyebrow">SEO · Search Console · DNS</span>
+  <h1>From your code to a Google result</h1>
+  <p>
+    Two questions every frontend dev eventually asks: <em>“How does my page turn into that little
+    blue link on Google?”</em> and <em>“What was that record we pasted into Namecheap?”</em>
+    This page answers both — live and interactive.
+  </p>
+</section>
+
+<!-- =========================================================
+     PART 1 — How a page becomes a Google search result
+     ========================================================= -->
+<section class="block">
+  <div class="block-head">
+    <span class="step-pill">Part 1</span>
+    <h2>How a page becomes a Google result</h2>
+  </div>
+  <p class="block-lead">
+    Google does <strong>not</strong> invent that snippet. It reads the exact SEO tags your
+    <code>SeoService</code> writes into the page <code>&lt;head&gt;</code>. Edit the fields below and
+    watch the search result rebuild itself in real time.
+  </p>
+
+  <div class="lab">
+    <!-- Controls -->
+    <div class="controls card">
+      <h3>Your SEO fields</h3>
+
+      <label>
+        <span class="lbl">Domain</span>
+        <input type="text" [ngModel]="domain()" (ngModelChange)="domain.set($event)" />
+        <small>Maps to <code>og:url</code> / canonical host</small>
+      </label>
+
+      <label>
+        <span class="lbl">Page path</span>
+        <input type="text" [ngModel]="path()" (ngModelChange)="path.set($event)" />
+        <small>The route, e.g. <code>/blog/understanding-ssr</code></small>
+      </label>
+
+      <label>
+        <span class="lbl">
+          Title tag
+          <span class="counter" [class.over]="titleCount() > titleLimit">{{ titleCount() }}/{{ titleLimit }}</span>
+        </span>
+        <input type="text" [ngModel]="title()" (ngModelChange)="title.set($event)" />
+        <small>Becomes <code>&lt;title&gt;</code> + <code>og:title</code></small>
+      </label>
+
+      <label>
+        <span class="lbl">
+          Meta description
+          <span class="counter" [class.over]="descCount() > descLimit">{{ descCount() }}/{{ descLimit }}</span>
+        </span>
+        <textarea rows="3" [ngModel]="description()" (ngModelChange)="description.set($event)"></textarea>
+        <small>Becomes <code>meta name="description"</code></small>
+      </label>
+
+      <div class="switches">
+        <button
+          type="button"
+          class="switch"
+          [class.on]="seoEnabled()"
+          (click)="seoEnabled.set(!seoEnabled())"
+        >
+          <span class="dot"></span> SEO tags {{ seoEnabled() ? 'ON' : 'OFF' }}
+        </button>
+        <button
+          type="button"
+          class="switch"
+          [class.on]="ssrEnabled()"
+          (click)="ssrEnabled.set(!ssrEnabled())"
+        >
+          <span class="dot"></span> SSR {{ ssrEnabled() ? 'ON' : 'OFF' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Live preview column -->
+    <div class="preview-col">
+      <!-- The SERP card -->
+      <div class="serp card">
+        <div class="serp-bar">
+          <span class="g">G</span><span class="o1">o</span><span class="o2">o</span><span class="g2">g</span><span class="l">l</span><span class="e">e</span>
+          <div class="serp-search">{{ domain() }} understanding ssr</div>
+        </div>
+
+        <div class="serp-result">
+          <div class="serp-site">
+            <span class="favicon">{{ faviconLetter() }}</span>
+            <div class="serp-host">
+              <span class="host">{{ domain() }}</span>
+              <span class="url">https://{{ displayUrl() }}</span>
+            </div>
+          </div>
+          <a class="serp-title" href="javascript:void(0)">{{ displayTitle() }}</a>
+          <p class="serp-desc" [class.guessed]="!seoEnabled()">{{ displayDescription() }}</p>
+
+          @if (seoEnabled()) {
+            <!-- Rich result hint: only shows when structured data / good SEO is present -->
+            <div class="serp-rich">⭐ 4.8 · 312 reviews · In stock</div>
+          }
+        </div>
+      </div>
+
+      <!-- What the crawler actually downloads -->
+      <div class="crawler card">
+        <div class="crawler-head">
+          <span>What Googlebot downloads for this URL</span>
+          <span class="badge" [class.good]="ssrEnabled()" [class.bad]="!ssrEnabled()">
+            {{ ssrEnabled() ? 'SSR — full HTML' : 'No SSR — empty shell' }}
+          </span>
+        </div>
+
+        @if (ssrEnabled()) {
+          <pre class="html good"><code>&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;{{ displayTitle() }}&lt;/title&gt;
+@if (seoEnabled()) {<span>    &lt;meta name="description" content="{{ description() }}"&gt;
+    &lt;link rel="canonical" href="https://{{ domain() }}{{ path() }}"&gt;
+    &lt;meta property="og:title" content="{{ title() }}"&gt;
+    &lt;script type="application/ld+json"&gt;&#123; "@type": "Article" &#125;&lt;/script&gt;</span>} @else {<span class="dim">    &lt;!-- ❌ no description, no canonical, no OG, no JSON-LD --&gt;</span>}
+  &lt;/head&gt;
+  &lt;body&gt;
+    <span class="hl">&lt;h1&gt;{{ title() }}&lt;/h1&gt;
+    &lt;article&gt;Full rendered content is right here in the HTML…&lt;/article&gt;</span>
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        } @else {
+          <pre class="html bad"><code>&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Angular App&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    <span class="hl">&lt;app-root&gt;&lt;/app-root&gt;  &lt;!-- 😵 empty until JS runs --&gt;</span>
+    &lt;script src="main.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Mapping table: meta tag -> where it shows up -->
+  <div class="mapping card">
+    <h3>Which tag controls which part of the result?</h3>
+    <table>
+      <thead>
+        <tr><th>Result part</th><th>HTML tag</th><th>If missing…</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Blue clickable headline</td>
+          <td><code>&lt;title&gt;</code> / <code>og:title</code></td>
+          <td>Google guesses from <code>&lt;h1&gt;</code> or domain</td>
+        </tr>
+        <tr>
+          <td>Grey description snippet</td>
+          <td><code>meta name="description"</code></td>
+          <td>Google scrapes random page text</td>
+        </tr>
+        <tr>
+          <td>Green URL / breadcrumb</td>
+          <td><code>link rel="canonical"</code></td>
+          <td>Duplicate-content risk across URLs</td>
+        </tr>
+        <tr>
+          <td>⭐ Stars, price, FAQ</td>
+          <td><code>JSON-LD</code> structured data</td>
+          <td>Plain result — no rich features</td>
+        </tr>
+        <tr>
+          <td>Social share card</td>
+          <td><code>og:*</code> / <code>twitter:*</code></td>
+          <td>Ugly bare-link preview on LinkedIn/Slack</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout info">
+    <span class="ico">💡</span>
+    <div>
+      <strong>The SSR connection:</strong> Googlebot reads HTML <em>first</em>, and historically
+      doesn’t wait for slow JavaScript. With SSR <span class="badge good">ON</span>, the title,
+      description and content are already in the HTML — so the snippet above is reliable. With SSR
+      <span class="badge bad">OFF</span>, the crawler may only see <code>&lt;app-root&gt;&lt;/app-root&gt;</code>
+      and your result looks empty. Try the toggles above and compare the “What Googlebot downloads” box.
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     PART 2 — Verifying your domain in Google Search Console
+     ========================================================= -->
+<section class="block">
+  <div class="block-head">
+    <span class="step-pill">Part 2</span>
+    <h2>Getting your domain into Google Search Console</h2>
+  </div>
+  <p class="block-lead">
+    Before Google will show you <em>your</em> search analytics (and let you request indexing), you
+    must <strong>prove you own the domain</strong>. This is exactly the flow in the two screenshots —
+    recreated here so you can talk through it step by step.
+  </p>
+
+  <!-- Step 1: choose property type -->
+  <h3 class="stage">Step 1 — Pick a property type</h3>
+  <div class="property-types">
+    <div class="prop card recommended">
+      <span class="tag-rec">Recommended</span>
+      <div class="prop-icon">🌐</div>
+      <h4>Domain</h4>
+      <ul>
+        <li>All URLs across <strong>every</strong> subdomain (<code>m.</code>, <code>www.</code>, …)</li>
+        <li>Both <code>https</code> and <code>http</code></li>
+        <li>Requires <strong>DNS verification</strong></li>
+      </ul>
+      <div class="prop-input">{{ domain() }}</div>
+      <button type="button" class="btn primary" disabled>Continue</button>
+    </div>
+
+    <span class="or">or</span>
+
+    <div class="prop card">
+      <div class="prop-icon">🔗</div>
+      <h4>URL prefix</h4>
+      <ul>
+        <li>Only URLs under the <strong>exact</strong> address you enter</li>
+        <li>Only the protocol you specify</li>
+        <li>Allows multiple verification methods (HTML file, tag…)</li>
+      </ul>
+      <div class="prop-input ghost">https://www.{{ domain() }}</div>
+      <button type="button" class="btn ghost" disabled>Continue</button>
+    </div>
+  </div>
+
+  <!-- Step 2: DNS TXT record -->
+  <h3 class="stage">Step 2 — Google hands you a DNS TXT record</h3>
+  <div class="verify card">
+    <div class="verify-head">
+      <strong>Verify domain ownership via DNS record</strong>
+      <span class="verify-domain">{{ domain() }}</span>
+    </div>
+
+    <ol class="verify-steps">
+      <li><span class="n">1</span> Record type: <strong>TXT</strong> (recommended)</li>
+      <li><span class="n">2</span> Sign in to your domain provider (e.g. <strong>Namecheap</strong>, GoDaddy)</li>
+      <li>
+        <span class="n">3</span> Copy this record into the DNS configuration for <strong>{{ domain() }}</strong>:
+        <div class="record">
+          <code class="record-value">{{ verificationRecord() }}</code>
+          <button type="button" class="copy-btn" (click)="copyRecord()">
+            {{ copied() ? '✓ Copied' : 'Copy' }}
+          </button>
+        </div>
+      </li>
+      <li><span class="n">4</span> Press <strong>Verify</strong>. (DNS can take minutes to hours to propagate.)</li>
+    </ol>
+  </div>
+
+  <!-- Step 3: paste into Namecheap -->
+  <h3 class="stage">Step 3 — Paste it at your registrar (Namecheap)</h3>
+  <p class="block-lead">
+    In Namecheap: <code>Domain List → Manage → Advanced DNS → Add New Record</code>. You’re telling
+    the world’s DNS “this random Google string lives on my domain” — only the real owner could do
+    that, which is how Google trusts you.
+  </p>
+  <div class="dns-table card">
+    <table>
+      <thead>
+        <tr><th>Type</th><th>Host</th><th>Value</th><th>TTL</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pill">TXT Record</span></td>
+          <td><code>@</code></td>
+          <td class="val"><code>{{ verificationRecord() }}</code></td>
+          <td>Automatic</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="dns-note">
+      <code>@</code> means the root domain (<code>{{ domain() }}</code> itself). Save, wait, then
+      click <strong>Verify</strong> back in Search Console.
+    </p>
+  </div>
+
+  <div class="callout good">
+    <span class="ico">✅</span>
+    <div>
+      <strong>Once verified</strong> you can submit your <code>sitemap.xml</code>, watch which
+      queries bring traffic, and use <em>URL Inspection → Request indexing</em> to nudge Google to
+      re-crawl a page after you ship new SEO tags or SSR. The verification TXT must stay in DNS —
+      remove it and Google eventually drops your ownership.
+    </div>
+  </div>
+</section>
+
+<!-- Recap -->
+<section class="block recap">
+  <h2>The whole loop in one glance</h2>
+  <div class="loop">
+    <div class="loop-step"><span>1</span>You ship SEO tags + SSR</div>
+    <span class="arrow">→</span>
+    <div class="loop-step"><span>2</span>Verify domain (DNS TXT)</div>
+    <span class="arrow">→</span>
+    <div class="loop-step"><span>3</span>Googlebot crawls full HTML</div>
+    <span class="arrow">→</span>
+    <div class="loop-step"><span>4</span>Your snippet appears in results</div>
+  </div>
+</section>

@@ -1,0 +1,108 @@
+<section class="page-head">
+  <span class="eyebrow">Copy · Paste · Reuse</span>
+  <h1>Code recipes</h1>
+  <p>
+    The exact SSR &amp; SEO patterns this demo uses, packaged as self-contained snippets. Hit
+    <strong>Copy</strong> and drop them into any Angular 17+ standalone project — no need to dig
+    through this repo.
+  </p>
+</section>
+
+<div class="toc card">
+  <span class="toc-label">Jump to</span>
+  <a href="#ssr">SSR &amp; Hydration</a>
+  <a href="#seo">SEO meta tags</a>
+  <a href="#structured">Canonical &amp; JSON-LD</a>
+  <a href="#transfer">TransferState</a>
+</div>
+
+<!-- SSR -->
+<section id="ssr" class="recipe-group">
+  <h2>① SSR &amp; Hydration</h2>
+  <p class="group-lead">
+    Turn a client-only Angular app into a server-rendered one. The server sends complete HTML
+    (great for SEO + first paint); the browser then <em>hydrates</em> it instead of re-rendering.
+  </p>
+
+  <app-code-snippet
+    title="Add SSR to any Angular app"
+    lang="bash"
+    [code]="enableSsrCli"
+  />
+  <app-code-snippet
+    title="Browser providers — hydration + fetch"
+    file="app.config.ts"
+    [code]="clientConfig"
+  />
+  <app-code-snippet
+    title="Server providers"
+    file="app.config.server.ts"
+    [code]="serverConfig"
+  />
+  <app-code-snippet
+    title="Per-route render strategy (prerender vs server)"
+    file="app.routes.server.ts"
+    [code]="serverRoutes"
+  />
+</section>
+
+<!-- SEO -->
+<section id="seo" class="recipe-group">
+  <h2>② SEO meta tags</h2>
+  <p class="group-lead">
+    One small service writes every tag a page needs. Because it runs during SSR, crawlers receive a
+    fully-populated <code>&lt;head&gt;</code> without executing JavaScript.
+  </p>
+
+  <app-code-snippet
+    title="The reusable SeoService.apply() core"
+    file="core/services/seo.service.ts"
+    [code]="seoServiceApply"
+  />
+  <app-code-snippet
+    title="Using it in a page (one call per route)"
+    file="pages/product-detail/product-detail.page.ts"
+    [code]="seoUsage"
+  />
+
+  <div class="callout bad">
+    <span class="ico">⚠️</span>
+    <div>
+      <strong>OG image gotcha:</strong> social crawlers (LinkedIn, Facebook, X) generally do
+      <strong>not</strong> render <code>.svg</code> for <code>og:image</code>. Use a raster
+      <strong>PNG/JPG around 1200×630</strong> with an absolute URL. This demo ships SVG placeholders
+      for simplicity — swap them for real images before sharing links publicly.
+    </div>
+  </div>
+</section>
+
+<!-- Structured data -->
+<section id="structured" class="recipe-group">
+  <h2>③ Canonical URL &amp; JSON-LD</h2>
+  <p class="group-lead">
+    Canonical tags fix duplicate-URL problems; JSON-LD unlocks rich results (stars, price, FAQ).
+  </p>
+
+  <app-code-snippet title="Canonical link helper" [code]="canonical" />
+  <app-code-snippet title="JSON-LD structured data" [code]="jsonLd" />
+</section>
+
+<!-- TransferState -->
+<section id="transfer" class="recipe-group">
+  <h2>④ TransferState (skip the double fetch)</h2>
+  <p class="group-lead">
+    Without this, SSR fetches data on the server <em>and</em> the browser fetches it again after
+    hydration. TransferState ships the server result inside the HTML so the client reads it for free.
+  </p>
+
+  <app-code-snippet title="Cache on the server, reuse on the client" [code]="transferState" />
+</section>
+
+<div class="callout good">
+  <span class="ico">📋</span>
+  <div>
+    These mirror the real files in <code>src/app/</code>. Want to see them in action first? Use
+    <strong>SEO Compare</strong>, <strong>Google Preview</strong> and the
+    <strong>TransferState</strong> lab from the nav, then come back here to copy the implementation.
+  </div>
+</div>

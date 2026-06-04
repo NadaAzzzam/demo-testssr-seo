@@ -1,0 +1,30 @@
+<section class="page-head">
+  <h1>Product catalog</h1>
+  <p>JSON-backed list simulating <code>GET /api/products</code>. SSR renders product names in HTML.</p>
+</section>
+
+<app-url-seo-note
+  heading="Listing pages: keep filters out of the indexable URL"
+  [good]="[
+    '/products',
+    '/products/running-shoes',
+    '/products?page=2  (paginated, with rel=canonical)'
+  ]"
+  [bad]="[
+    '/products?cat=12&sort=price&color=red&page=2&ref=ad',
+    '/products?sessionId=abc123',
+    '/catalog?view=grid&utm_source=fb&utm_campaign=x'
+  ]"
+  tip="A few params are fine, but combinations of sort/filter/tracking params multiply into thousands of near-duplicate URLs. Point them at one canonical, or expose human-readable category paths like /products/running-shoes instead of ?cat=12."
+/>
+
+
+@if (products$ | async; as products) {
+  <div class="grid">
+    @for (product of products; track product.id) {
+      <app-product-card [product]="product" />
+    }
+  </div>
+} @else {
+  <p class="loading">Loading products…</p>
+}

@@ -1,0 +1,67 @@
+@if (product$ | async; as product) {
+  <article class="detail">
+    <!-- SSR: Product name and price appear in server HTML for crawlers -->
+    <div class="gallery">
+      <img
+        [src]="product.image"
+        [alt]="product.name + ' — main product image'"
+        width="640"
+        height="480"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="info">
+      <p class="badge">{{ product.category }} · {{ product.brand }}</p>
+      <h1>{{ product.name }}</h1>
+      <p class="price">{{ product.price | currency: product.currency }}</p>
+      <p [class.out]="!product.inStock">
+        {{ product.inStock ? 'In stock' : 'Out of stock' }}
+      </p>
+      <p>{{ product.description }}</p>
+      <p class="rating">★ {{ product.rating }} ({{ product.reviewCount }} reviews)</p>
+      <p class="sku">SKU: {{ product.sku }}</p>
+    </div>
+  </article>
+
+  <app-url-seo-note
+    heading="Detail pages: a descriptive slug, not a database ID"
+    [good]="[
+      '/products/' + product.slug,
+      '/products/' + product.slug + '  (canonical, stable forever)'
+    ]"
+    [bad]="[
+      '/products?id=' + product.id,
+      '/p/' + product.id + '?ref=email&variant=2&utm_source=ig',
+      '/products/' + product.slug + '?id=' + product.id + '&fbclid=...'
+    ]"
+    tip="The slug carries keywords humans and Google read in the result. Keep it stable — if you must change it, 301-redirect the old slug. Strip tracking params (utm_, fbclid, ref) with a canonical so shared links don't fragment your ranking."
+  />
+
+
+  @defer (on idle) {
+    <section class="related">
+      <h2>Related products</h2>
+      <p class="defer-hint">Deferred with <code>&#64;defer (on idle)</code> — not needed for first paint.</p>
+      @if (related$ | async; as related) {
+        <div class="grid">
+          @for (item of related; track item.id) {
+            <app-product-card [product]="item" />
+          }
+        </div>
+      }
+    </section>
+  } @placeholder {
+    <p class="defer-placeholder">Related products will load when browser is idle…</p>
+  }
+
+  @defer (on viewport) {
+    <section class="comments-block">
+      <h2>Customer comments</h2>
+      <app-product-comments [productName]="product.name" />
+    </section>
+  } @placeholder {
+    <p class="defer-placeholder">Comments load when section enters viewport…</p>
+  }
+} @else {
+  <p>Loading product…</p>
+}

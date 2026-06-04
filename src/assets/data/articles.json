@@ -1,0 +1,59 @@
+{
+  "featured": [
+    {
+      "id": "understanding-ssr",
+      "slug": "understanding-ssr",
+      "title": "Understanding Server-Side Rendering in Angular",
+      "excerpt": "Learn how Angular renders HTML on the server before sending it to the browser.",
+      "image": "/images/blog-ssr.svg",
+      "author": "Demo Team",
+      "publishedAt": "2025-11-15",
+      "readMinutes": 8
+    },
+    {
+      "id": "seo-meta-tags",
+      "slug": "seo-meta-tags",
+      "title": "Meta Tags, Open Graph, and Twitter Cards",
+      "excerpt": "Why crawlers and social platforms need rich metadata on every page.",
+      "image": "/images/blog-seo.svg",
+      "author": "Demo Team",
+      "publishedAt": "2025-12-01",
+      "readMinutes": 6
+    }
+  ],
+  "articles": [
+    {
+      "id": "understanding-ssr",
+      "slug": "understanding-ssr",
+      "title": "Understanding Server-Side Rendering in Angular",
+      "excerpt": "Learn how Angular renders HTML on the server before sending it to the browser.",
+      "image": "/images/blog-ssr.svg",
+      "author": "Demo Team",
+      "publishedAt": "2025-11-15",
+      "readMinutes": 8,
+      "body": "<p><strong>SSR (Server-Side Rendering)</strong> means your Angular app runs on Node during the initial request. The server executes components, resolves data, and returns fully-formed HTML.</p><p>Crawlers and users see meaningful content immediately—no empty <code>&lt;app-root&gt;</code> shell.</p><p>In this demo, look at <em>View Page Source</em> on any route: article titles and product names appear in the raw HTML because they were rendered on the server.</p>"
+    },
+    {
+      "id": "seo-meta-tags",
+      "slug": "seo-meta-tags",
+      "title": "Meta Tags, Open Graph, and Twitter Cards",
+      "excerpt": "Why crawlers and social platforms need rich metadata on every page.",
+      "image": "/images/blog-seo.svg",
+      "author": "Demo Team",
+      "publishedAt": "2025-12-01",
+      "readMinutes": 6,
+      "body": "<p><strong>SEO</strong> is how you help search engines understand your pages. Dynamic <code>&lt;title&gt;</code>, meta descriptions, canonical URLs, and JSON-LD structured data all signal relevance.</p><p>Open Graph and Twitter Card tags control how links look when shared on Slack, LinkedIn, or X.</p>"
+    },
+    {
+      "id": "transfer-state",
+      "slug": "transfer-state",
+      "title": "TransferState: Avoiding Duplicate API Calls",
+      "excerpt": "SSR fetches data on the server—without TransferState the browser fetches again.",
+      "image": "/images/blog-transfer.svg",
+      "author": "Demo Team",
+      "publishedAt": "2026-01-10",
+      "readMinutes": 5,
+      "body": "<p>When SSR and the browser both call the same endpoint, you pay twice: slower hydration and wasted bandwidth.</p><p><strong>TransferState</strong> serializes server-fetched data into the HTML; the client reuses it instead of refetching.</p><p>Visit the Transfer State Demo page and open the Network tab to compare both patterns.</p>"
+    }
+  ]
+}

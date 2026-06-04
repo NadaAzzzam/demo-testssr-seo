@@ -1,0 +1,53 @@
+.hero {
+  padding: 3rem 0 2rem;
+  max-width: 720px;
+}
+.eyebrow {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.lead {
+  font-size: 1.15rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+.ssr-note {
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface-elevated);
+  border-radius: 8px;
+  border-left: 4px solid var(--accent);
+}
+.section {
+  margin-top: 2.5rem;
+}
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+.grid {
+  display: grid;
+  gap: 1.25rem;
+}
+.grid.articles {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+.grid.products {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+.defer-placeholder,
+.loading {
+  color: var(--muted);
+  padding: 2rem 0;
+}

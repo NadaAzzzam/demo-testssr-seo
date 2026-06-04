@@ -1,0 +1,47 @@
+<section class="page-head">
+  <h1>TransferState laboratory</h1>
+  <p>
+    Open DevTools → <strong>Network</strong>, filter <code>products.json</code>, then hard-refresh.
+    Run SSR with <code>npm run serve:ssr</code> to see server + browser behavior.
+  </p>
+</section>
+
+<div class="actions">
+  <button type="button" class="btn danger" (click)="runWithout()">Fetch WITHOUT TransferState</button>
+  <button type="button" class="btn primary" (click)="runWith()">Fetch WITH TransferState</button>
+</div>
+
+<p class="pattern">Active pattern: <strong>{{ pattern() }}</strong></p>
+
+@if (products$() | async; as products) {
+  <p class="count">{{ products.length }} products loaded (from simulated API)</p>
+  <ul class="names">
+    @for (p of products; track p.id) {
+      <li>{{ p.name }}</li>
+    }
+  </ul>
+}
+
+<section class="log">
+  <h2>Fetch log</h2>
+  <ol>
+    @for (entry of log(); track entry.timestamp + entry.message) {
+      <li [class.server]="entry.phase === 'server'" [class.browser]="entry.phase === 'browser'">
+        <span class="phase">{{ entry.phase }}</span>
+        @if (entry.usedTransferState) {
+          <span class="ts">TransferState</span>
+        }
+        {{ entry.message }}
+      </li>
+    }
+  </ol>
+</section>
+
+<aside class="explain">
+  <h3>Why duplicate requests happen</h3>
+  <p>
+    During SSR, Angular runs your components on Node and HttpClient fetches JSON. After hydration,
+    the browser bootstraps the same app and subscriptions run again — another fetch unless you
+    reuse server data via <strong>TransferState</strong>.
+  </p>
+</aside>
