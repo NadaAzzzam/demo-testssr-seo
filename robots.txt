@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://NadaAzzzam.github.io/demo-testssr-seo/sitemap.xml
