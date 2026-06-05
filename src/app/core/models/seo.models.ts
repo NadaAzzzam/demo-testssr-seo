@@ -1,6 +1,6 @@
 /** Configuration passed to SeoService for each route. */
 
-export type StructuredDataType = 'Organization' | 'Article' | 'Product' | 'none';
+export type StructuredDataType = 'Organization' | 'Article' | 'Product' | 'ItemList' | 'none';
 
 export interface SeoConfig {
   title: string;

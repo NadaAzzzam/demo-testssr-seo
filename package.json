@@ -8,6 +8,7 @@
     "prebuild": "node scripts/generate-dummy-images.mjs",
     "prestart": "node scripts/generate-dummy-images.mjs",
     "build": "ng build",
+    "postbuild": "node scripts/generate-seo-files.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr": "node dist/demo-testssr-seo/server/server.mjs",

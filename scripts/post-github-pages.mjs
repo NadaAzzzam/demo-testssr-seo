@@ -1,7 +1,8 @@
 /**
- * GitHub Pages extras: SPA 404 fallback + .nojekyll + restore patched JSON
+ * GitHub Pages extras: SPA 404 fallback + .nojekyll + sitemap/robots + restore patched JSON
  */
 import { copyFileSync, cpSync, existsSync, rmSync, writeFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
 import { join } from 'node:path';
 
 const root = process.cwd();
@@ -22,3 +23,9 @@ if (existsSync(backupDir)) {
 }
 
 console.log('post-github-pages: wrote 404.html and .nojekyll');
+
+const seoFiles = spawnSync('node', ['scripts/generate-seo-files.mjs'], {
+  stdio: 'inherit',
+  shell: true,
+});
+process.exit(seoFiles.status ?? 1);

@@ -17,14 +17,31 @@ export class ProductsListPage implements OnInit {
   readonly products$ = inject(MockDataService).getAllProducts();
   private readonly seo = inject(SeoService);
 
+  private readonly catalogTitle = 'Product Catalog';
+  private readonly catalogDescription =
+    'Browse demo products with optimized titles, meta tags, and Product schema on detail pages.';
+
   ngOnInit(): void {
-    this.seo.apply({
-      title: 'Product Catalog',
-      description:
-        'Browse demo products with optimized titles, meta tags, and Product schema on detail pages.',
-      canonicalPath: '/products',
-      image: '/images/og-default.jpg',
-      type: 'website',
+    this.products$.subscribe((products) => {
+      const listUrl = this.seo.absoluteUrl('/products');
+      this.seo.apply({
+        title: this.catalogTitle,
+        description: this.catalogDescription,
+        canonicalPath: '/products',
+        image: '/images/og-default.jpg',
+        type: 'website',
+        structuredData: this.seo.buildItemListSchema({
+          name: this.catalogTitle,
+          description: this.catalogDescription,
+          url: listUrl,
+          items: products.map((product) => ({
+            name: product.name,
+            url: this.seo.absoluteUrl(`/products/${product.slug}`),
+            image: product.image,
+          })),
+        }),
+        structuredDataType: 'ItemList',
+      });
     });
   }
 }

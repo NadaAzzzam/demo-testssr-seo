@@ -148,6 +148,32 @@ export class SeoService {
     };
   }
 
+  buildItemListSchema(list: {
+    name: string;
+    description: string;
+    url: string;
+    items: Array<{ name: string; url: string; image: string }>;
+  }): Record<string, unknown> {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: list.name,
+      description: list.description,
+      url: list.url,
+      numberOfItems: list.items.length,
+      itemListElement: list.items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        item: {
+          '@type': 'Product',
+          name: item.name,
+          url: item.url,
+          image: this.absoluteUrl(item.image),
+        },
+      })),
+    };
+  }
+
   buildProductSchema(product: {
     name: string;
     description: string;
