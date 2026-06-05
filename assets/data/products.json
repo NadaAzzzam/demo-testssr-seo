@@ -7,7 +7,7 @@
       "shortDescription": "Lightweight shell with breathable panels for training in cool weather.",
       "price": 129.99,
       "currency": "USD",
-      "image": "/demo-testssr-seo/images/product-jacket.svg",
+      "image": "/demo-testssr-seo/images/product-jacket.jpg",
       "category": "Outerwear",
       "inStock": true,
       "rating": 4.8,
@@ -20,7 +20,7 @@
       "shortDescription": "Responsive cushioning and recycled upper for daily miles.",
       "price": 89.5,
       "currency": "USD",
-      "image": "/demo-testssr-seo/images/product-shoes.svg",
+      "image": "/demo-testssr-seo/images/product-shoes.jpg",
       "category": "Footwear",
       "inStock": true,
       "rating": 4.6,
@@ -36,10 +36,10 @@
       "description": "The Aurora Performance Jacket combines wind-resistant ripstop with laser-cut ventilation. Ideal for early-morning runs and post-workout layers. Machine washable; ships carbon-neutral.",
       "price": 129.99,
       "currency": "USD",
-      "image": "/demo-testssr-seo/images/product-jacket.svg",
+      "image": "/demo-testssr-seo/images/product-jacket.jpg",
       "images": [
-        "/demo-testssr-seo/images/product-jacket.svg",
-        "/demo-testssr-seo/images/product-jacket-alt.svg"
+        "/demo-testssr-seo/images/product-jacket.jpg",
+        "/demo-testssr-seo/images/product-jacket-alt.jpg"
       ],
       "category": "Outerwear",
       "sku": "APJ-2025-BLK",
@@ -56,9 +56,9 @@
       "description": "Zen Flow Runner uses a dual-density midsole and wide toe box. The recycled mesh upper reduces weight while maintaining structure for 500+ mile durability tests.",
       "price": 89.5,
       "currency": "USD",
-      "image": "/demo-testssr-seo/images/product-shoes.svg",
+      "image": "/demo-testssr-seo/images/product-shoes.jpg",
       "images": [
-        "/demo-testssr-seo/images/product-shoes.svg"
+        "/demo-testssr-seo/images/product-shoes.jpg"
       ],
       "category": "Footwear",
       "sku": "ZFR-2025-GRY",
@@ -75,9 +75,9 @@
       "description": "Double-wall vacuum insulation keeps drinks cold for 24 hours. Powder-coated exterior resists scratches; leak-proof flip lid included.",
       "price": 34,
       "currency": "USD",
-      "image": "/demo-testssr-seo/images/product-bottle.svg",
+      "image": "/demo-testssr-seo/images/product-bottle.jpg",
       "images": [
-        "/demo-testssr-seo/images/product-bottle.svg"
+        "/demo-testssr-seo/images/product-bottle.jpg"
       ],
       "category": "Accessories",
       "sku": "HIB-750-TEAL",
@@ -94,9 +94,9 @@
       "description": "Natural rubber base with microfiber top layer for sweat-heavy sessions. Alignment markers help posture without looking cluttered.",
       "price": 58,
       "currency": "USD",
-      "image": "/demo-testssr-seo/images/product-mat.svg",
+      "image": "/demo-testssr-seo/images/product-mat.jpg",
       "images": [
-        "/demo-testssr-seo/images/product-mat.svg"
+        "/demo-testssr-seo/images/product-mat.jpg"
       ],
       "category": "Wellness",
       "sku": "GYM-5MM-SGE",
