@@ -112,14 +112,14 @@
       "author": "Sara M.",
       "role": "Frontend Lead",
       "quote": "This demo made our team finally understand why SSR matters for product pages.",
-      "avatar": "/demo-testssr-seo/images/avatar-1.svg"
+      "avatar": "/demo-testssr-seo/images/avatar-1.jpg"
     },
     {
       "id": "t2",
       "author": "Omar K.",
       "role": "SEO Specialist",
       "quote": "Seeing JSON-LD in View Source convinced us to adopt structured data site-wide.",
-      "avatar": "/demo-testssr-seo/images/avatar-2.svg"
+      "avatar": "/demo-testssr-seo/images/avatar-2.jpg"
     }
   ],
   "relatedProductIds": {
