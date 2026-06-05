@@ -19,7 +19,7 @@ export class SeoService {
   private readonly document = inject(DOCUMENT);
 
   private baseUrl = 'https://demo.local/angular-ssr-seo';
-  private defaultImage = '/images/og-default.svg';
+  private defaultImage = '/images/og-default.jpg';
   private siteName = 'Angular SSR & SEO Demo';
   private twitterHandle = '@angular';
 
@@ -191,7 +191,15 @@ export class SeoService {
       return path;
     }
     const normalized = path.startsWith('/') ? path : `/${path}`;
-    return `${this.baseUrl}${normalized}`;
+    const base = new URL(this.baseUrl);
+    const basePath = base.pathname.replace(/\/$/, '');
+
+    // GitHub Pages asset paths may already include the deploy prefix (e.g. /repo/images/...).
+    if (basePath && normalized.startsWith(`${basePath}/`)) {
+      return `${base.origin}${normalized}`;
+    }
+
+    return `${this.baseUrl.replace(/\/$/, '')}${normalized}`;
   }
 
   private updateMetaTag(attr: 'name' | 'property', selector: string, content: string): void {

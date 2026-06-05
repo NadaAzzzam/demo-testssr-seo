@@ -44,13 +44,6 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     this.mockData.getSiteConfig().subscribe((site) => {
-      this.seo.setSiteDefaults({
-        baseUrl: site.defaultSeo.baseUrl,
-        defaultImage: site.defaultSeo.defaultImage,
-        siteName: site.defaultSeo.siteName,
-        twitterHandle: site.defaultSeo.twitterHandle,
-      });
-
       const orgSchema = this.seo.buildOrganizationSchema(site.organization);
       this.seo.apply({
         title: 'Home — Learn SSR, Hydration & SEO',

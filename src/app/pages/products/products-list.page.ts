@@ -23,6 +23,7 @@ export class ProductsListPage implements OnInit {
       description:
         'Browse demo products with optimized titles, meta tags, and Product schema on detail pages.',
       canonicalPath: '/products',
+      image: '/images/og-default.jpg',
       type: 'website',
     });
   }

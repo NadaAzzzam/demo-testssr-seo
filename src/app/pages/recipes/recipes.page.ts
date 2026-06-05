@@ -41,7 +41,7 @@ export class RecipesPage implements OnInit, AfterViewInit {
       description:
         'Copy-paste Angular recipes for SSR, hydration, TransferState, and SEO meta tags, canonical URLs, Open Graph and JSON-LD.',
       canonicalPath: '/recipes',
-      image: '/images/og-default.svg',
+      image: '/images/og-default.jpg',
     });
   }
 

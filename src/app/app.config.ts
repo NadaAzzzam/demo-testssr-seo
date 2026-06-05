@@ -2,10 +2,12 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import { provideSeoDefaults } from './core/initializers/seo-defaults.initializer';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideSeoDefaults(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(
       routes,

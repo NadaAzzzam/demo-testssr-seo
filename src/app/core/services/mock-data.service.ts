@@ -24,7 +24,7 @@ export class MockDataService {
 
   private readonly siteConfig$ = this.http
     .get<SiteConfig>('/assets/data/site.json')
-    .pipe(delay(300), shareReplay(1));
+    .pipe(shareReplay(1));
 
   private readonly articlesBundle$ = this.http
     .get<ArticlesApiResponse>('/assets/data/articles.json')

@@ -81,7 +81,7 @@ export class GooglePreviewPage implements OnInit {
       description:
         'See how SEO meta tags turn into a Google search result, and how a domain is verified in Search Console via a DNS TXT record.',
       canonicalPath: '/google-preview',
-      image: '/images/og-default.svg',
+      image: '/images/og-default.jpg',
     });
   }
 

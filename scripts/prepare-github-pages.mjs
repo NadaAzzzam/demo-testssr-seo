@@ -50,8 +50,6 @@ const sitePath = join(dataDir, 'site.json');
 const site = JSON.parse(readFileSync(sitePath, 'utf-8'));
 site.organization.url = siteBaseUrl;
 site.defaultSeo.baseUrl = siteBaseUrl;
-site.defaultSeo.defaultImage = prefixRootPath(site.defaultSeo.defaultImage);
-site.organization.logo = prefixRootPath(site.organization.logo);
 writeFileSync(sitePath, `${JSON.stringify(site, null, 2)}\n`);
 
 for (const file of ['products.json', 'articles.json']) {

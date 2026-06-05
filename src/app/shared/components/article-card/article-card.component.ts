@@ -63,7 +63,7 @@ export class ArticleCardComponent {
 
   onImgError(event: Event): void {
     const img = event.target as HTMLImageElement;
-    if (img.src.endsWith('/images/blog-ssr.svg')) return;
-    img.src = '/images/blog-ssr.svg';
+    if (img.src.endsWith('/images/blog-ssr.jpg')) return;
+    img.src = '/images/blog-ssr.jpg';
   }
 }

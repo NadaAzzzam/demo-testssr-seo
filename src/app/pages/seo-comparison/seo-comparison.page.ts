@@ -41,7 +41,7 @@ export class SeoComparisonPage implements OnInit, OnDestroy {
       description:
         'This page demonstrates proper title, meta description, robots, canonical URL, Open Graph, Twitter Cards, and JSON-LD.',
       canonicalPath: '/seo-comparison',
-      image: '/images/og-default.svg',
+      image: '/images/og-default.jpg',
       structuredData: {
         '@context': 'https://schema.org',
         '@type': 'WebPage',

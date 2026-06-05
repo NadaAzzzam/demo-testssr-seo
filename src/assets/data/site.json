@@ -8,7 +8,7 @@
   "defaultSeo": {
     "siteName": "Angular SSR & SEO Demo",
     "baseUrl": "https://demo.local/angular-ssr-seo",
-    "defaultImage": "/images/og-default.svg",
+    "defaultImage": "/images/og-default.jpg",
     "twitterHandle": "@angular"
   }
 }
