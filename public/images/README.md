@@ -1,6 +1,6 @@
-# Dummy images
+# Images
 
-Labeled SVG placeholders for the SSR/SEO demo. Regenerate anytime:
+Product photos are real JPG assets (Unsplash). Other demo assets are labeled SVG placeholders — regenerate those anytime:
 
 ```bash
 npm run generate:images

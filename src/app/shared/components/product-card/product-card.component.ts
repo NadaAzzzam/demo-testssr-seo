@@ -76,7 +76,7 @@ export class ProductCardComponent {
 
   onImgError(event: Event): void {
     const img = event.target as HTMLImageElement;
-    if (img.src.endsWith('/images/product-jacket.svg')) return;
-    img.src = '/images/product-jacket.svg';
+    if (img.src.endsWith('/images/product-jacket.jpg')) return;
+    img.src = '/images/product-jacket.jpg';
   }
 }
